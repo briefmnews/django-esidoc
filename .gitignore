@@ -1,0 +1,12 @@
+.python-version
+.idea
+*.pyc
+.pytest_cache
+.tox/
+django_esidoc.egg-info
+
+#Tests coverage
+dist/
+build/
+.coverage
+htmlcov/
