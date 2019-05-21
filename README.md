@@ -2,7 +2,8 @@
 [![Python 2.7](https://img.shields.io/badge/python-2.7-blue.svg)](https://www.python.org/downloads/release/python-270/) 
 [![Django 1.11](https://img.shields.io/badge/django-1.11-blue.svg)](https://docs.djangoproject.com/en/1.11/)
 [![Build Status](https://travis-ci.org/briefmnews/django-esidoc.svg?branch=master)](https://travis-ci.org/briefmnews/django-esidoc)
-[![codecov](https://codecov.io/gh/briefmnews/django-esidoc/branch/master/graph/badge.svg)](https://codecov.io/gh/briefmnews/django-esidoc)  
+[![codecov](https://codecov.io/gh/briefmnews/django-esidoc/branch/master/graph/badge.svg)](https://codecov.io/gh/briefmnews/django-esidoc)
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/python/black)  
 Handle login and ticket validation for 
 [e-sidoc](https://www.reseau-canope.fr/notice/e-sidoc.html).
 This package allow you to manage institutions from the back office and
