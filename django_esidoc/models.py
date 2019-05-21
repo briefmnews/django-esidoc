@@ -9,12 +9,9 @@ User = get_user_model()
 
 
 class Institution(models.Model):
-    uai = models.CharField('Unité Administrative Immatriculée', max_length=8)
-    institution_name = models.CharField('Nom de l\'institution', max_length=255)
-    user = models.OneToOneField(
-        User,
-        on_delete=models.CASCADE,
-    )
+    uai = models.CharField("Unité Administrative Immatriculée", max_length=8)
+    institution_name = models.CharField("Nom de l'institution", max_length=255)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
 
     def save(self, *args, **kwargs):
         self.uai = self.uai.upper()

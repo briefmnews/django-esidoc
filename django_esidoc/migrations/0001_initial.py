@@ -11,18 +11,41 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-        migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-    ]
+    dependencies = [migrations.swappable_dependency(settings.AUTH_USER_MODEL)]
 
     operations = [
         migrations.CreateModel(
-            name='Institution',
+            name="Institution",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('uai', models.CharField(max_length=8, verbose_name='Unit\xe9 Administrative Immatricul\xe9e')),
-                ('institution_name', models.CharField(max_length=255, verbose_name="Nom de l'institution")),
-                ('user', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "uai",
+                    models.CharField(
+                        max_length=8,
+                        verbose_name="Unit\xe9 Administrative Immatricul\xe9e",
+                    ),
+                ),
+                (
+                    "institution_name",
+                    models.CharField(
+                        max_length=255, verbose_name="Nom de l'institution"
+                    ),
+                ),
+                (
+                    "user",
+                    models.OneToOneField(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
             ],
-        ),
+        )
     ]

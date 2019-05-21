@@ -10,7 +10,7 @@ from xml.etree.ElementTree import ParseError
 from .utils import get_cas_client
 
 
-ESIDOC_DEFAULT_REDIRECT = getattr(settings, 'ESIDOC_DEFAULT_REDIRECT', '/')
+ESIDOC_DEFAULT_REDIRECT = getattr(settings, "ESIDOC_DEFAULT_REDIRECT", "/")
 
 
 class CASMiddleware(object):
@@ -20,12 +20,12 @@ class CASMiddleware(object):
         self.get_response = get_response
 
     def __call__(self, request):
-        uai_number = request.GET.get('sso_id', '')
-        cas_ticket = request.GET.get('ticket', '')
+        uai_number = request.GET.get("sso_id", "")
+        cas_ticket = request.GET.get("ticket", "")
 
         if uai_number:
 
-            request.session['uai_number'] = uai_number.upper()
+            request.session["uai_number"] = uai_number.upper()
 
             url = self.get_cas_login_url(request)
             return HttpResponseRedirect(url)
@@ -34,7 +34,7 @@ class CASMiddleware(object):
 
             uai_number = self.validate_ticket(request, cas_ticket)
 
-            if uai_number == request.session.get('uai_number'):
+            if uai_number == request.session.get("uai_number"):
                 user = authenticate(uai_number=uai_number)
                 if user:
                     login(request, user)
@@ -63,9 +63,9 @@ class CASMiddleware(object):
 
         try:
             tree = ElementTree.fromstring(response)
-            ns = {'cas': 'http://www.yale.edu/tp/cas'}
-            auth_success_element = tree.find('cas:authenticationSuccess', ns)
-            uai_element = auth_success_element.find('cas:ENTStructureUAI', ns)
+            ns = {"cas": "http://www.yale.edu/tp/cas"}
+            auth_success_element = tree.find("cas:authenticationSuccess", ns)
+            uai_element = auth_success_element.find("cas:ENTStructureUAI", ns)
             return uai_element.text
         except (AttributeError, ParseError):
             return None

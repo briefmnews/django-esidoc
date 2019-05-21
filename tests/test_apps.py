@@ -9,4 +9,4 @@ pytestmark = pytest.mark.django_db
 class TestDjangoEsidocConfig(object):
     @staticmethod
     def test_apps():
-        assert 'django_esidoc' in DjangoEsidocConfig.name
+        assert "django_esidoc" in DjangoEsidocConfig.name

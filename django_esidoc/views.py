@@ -3,10 +3,7 @@ from __future__ import unicode_literals
 
 from django.views.generic import RedirectView
 
-from .utils import (
-    get_cas_client,
-    get_redirect_url,
-)
+from .utils import get_cas_client, get_redirect_url
 
 
 class LogoutRedirectView(RedirectView):
@@ -24,6 +21,6 @@ class LogoutRedirectView(RedirectView):
         client = get_cas_client(request)
         base_url = client.get_logout_url()
         redirect_url = get_redirect_url(request)
-        url = '{}?service={}'.format(base_url, redirect_url)
+        url = "{}?service={}".format(base_url, redirect_url)
 
         return url

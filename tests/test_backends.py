@@ -8,11 +8,10 @@ from django_esidoc.backends import CASBackend
 
 pytestmark = pytest.mark.django_db
 
-ESIDOC_DEFAULT_REDIRECT = getattr(settings, 'ESIDOC_DEFAULT_REDIRECT', '/')
+ESIDOC_DEFAULT_REDIRECT = getattr(settings, "ESIDOC_DEFAULT_REDIRECT", "/")
 
 
 class TestCASBackend(object):
-
     @staticmethod
     def test_user_has_access(user):
         """
@@ -65,7 +64,7 @@ class TestCASBackend(object):
 
         # WHEN
         backend = CASBackend()
-        user = backend.get_user(user_id=last_user.id+1)
+        user = backend.get_user(user_id=last_user.id + 1)
 
         # THEN
         assert user is None

@@ -16,16 +16,15 @@ def user():
 @pytest.fixture
 def mock_validate_valid_ticket(mocker, user):
     mocker.patch(
-        'django_esidoc.middleware.CASMiddleware.validate_ticket',
-        return_value=user.institution.uai
+        "django_esidoc.middleware.CASMiddleware.validate_ticket",
+        return_value=user.institution.uai,
     )
 
 
 @pytest.fixture
 def mock_validate_invalid_ticket(mocker):
     mocker.patch(
-        'django_esidoc.middleware.CASMiddleware.validate_ticket',
-        return_value=None
+        "django_esidoc.middleware.CASMiddleware.validate_ticket", return_value=None
     )
 
 
@@ -37,7 +36,7 @@ def request_builder():
 
 class RequestBuilder(object):
     @staticmethod
-    def build(query_params='?'):
+    def build(query_params="?"):
         rf = RequestFactory()
         request = rf.get(query_params)
         request.user = AnonymousUser()

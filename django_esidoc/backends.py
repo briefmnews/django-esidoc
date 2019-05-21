@@ -8,13 +8,11 @@ class CASBackend(object):
     """
     CAS authentication with UAI (Unité Administrative Immatriculée) number
     """
+
     @staticmethod
     def authenticate(uai_number):
         try:
-            user = User.objects.get(
-                institution__uai=uai_number,
-                is_active=True
-            )
+            user = User.objects.get(institution__uai=uai_number, is_active=True)
             return user
         except User.DoesNotExist:
             return None
