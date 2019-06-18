@@ -67,13 +67,14 @@ python manage.py migrate
 ```
 
 ### (Optional) Default redirection
-You can set a default path redirection by adding this line to your settings:
+You can set a default path redirection for inactive user by adding this line to 
+your settings:
 ```python
-ESIDOC_DEFAULT_REDIRECT = '/{mycustompath}/'
+ESIDOC_INACTIVE_USER_REDIRECT = '/{mycustompath}/'
 ```
-`ESIDOC_DEFAULT_REDIRECT` is used if the ticket returned by the CAS 
-is not valid.
-If `ESIDOC_DEFAULT_REDIRECT` is not set in the settings, it will take
+`ESIDOC_INACTIVE_USER_REDIRECT` is used if an inactive user with a valid ticket
+tries to login.
+If `ESIDOC_INACTIVE_USER_REDIRECT` is not set in the settings, it will take
 the root path (i.e. `/`) as default value.
 
 

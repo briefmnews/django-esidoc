@@ -1,14 +1,11 @@
 # -*- coding: utf-8 -*-
 import pytest
 
-from django.conf import settings
 from django.contrib.auth import get_user_model
 
 from django_esidoc.backends import CASBackend
 
 pytestmark = pytest.mark.django_db
-
-ESIDOC_DEFAULT_REDIRECT = getattr(settings, "ESIDOC_DEFAULT_REDIRECT", "/")
 
 
 class TestCASBackend(object):
