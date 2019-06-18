@@ -11,6 +11,7 @@ from .utils import get_cas_client
 
 
 ESIDOC_DEFAULT_REDIRECT = getattr(settings, "ESIDOC_DEFAULT_REDIRECT", "/")
+ESIDOC_INACTIVE_USER_REDIRECT = getattr(settings, "ESIDOC_INACTIVE_USER_REDIRECT", "/")
 
 
 class CASMiddleware(object):
@@ -38,6 +39,8 @@ class CASMiddleware(object):
                 user = authenticate(uai_number=uai_number)
                 if user:
                     login(request, user)
+                else:
+                    return HttpResponseRedirect(ESIDOC_INACTIVE_USER_REDIRECT)
 
         response = self.get_response(request)
 
