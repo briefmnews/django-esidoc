@@ -3,6 +3,10 @@ from __future__ import unicode_literals
 
 from django.views.generic import RedirectView
 
+from rest_framework import viewsets
+
+from .models import Institution
+from .serializers import InstitutionSerializer
 from .utils import get_cas_client, get_redirect_url
 
 
@@ -24,3 +28,8 @@ class LogoutRedirectView(RedirectView):
         url = "{}?service={}".format(base_url, redirect_url)
 
         return url
+
+
+class InstitutionViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = Institution.objects.all()
+    serializer_class = InstitutionSerializer
