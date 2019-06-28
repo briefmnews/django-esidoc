@@ -86,6 +86,36 @@ Here is an example of a request url to start the login process:
 https://www.exemple.com/?sso_id=9990075c
 ```
 
+## API endpoint
+In order to expose the `Institutions` UAI number and end of subscription date, the following
+API endpoint is available:
+```python
+urlpatterns = [
+    ...,
+    
+    url(r"^institutions/$", InstitutionViewSet.as_view({'get': 'list'}), name="esidoc_institutions")
+]
+```
+This endpoint is protected by a query string token authentication named `token`. 
+The token value can be set in the settings.py of your app.
+```python
+ESIDOC_ACCESS_TOKEN = 'my-secret-token-value'
+```
+Now when calling `/esidoc/insitutions/?token=my-secret-token-value`, you will get a json response
+with all your uai numbers (`uai`) and ends of subscription (`ends_at`). Here is an example:
+```json
+[
+    {
+        "uai": "9990075C",
+        "ends_at": "2020-10-05"
+    },
+    {
+        "uai": "8880075C",
+        "ends_at": "2021-09-01"
+    }
+]
+```
+
 ## Tests
 Testing is managed by `pytest`. Required package for testing can be installed with:
 ```shell
