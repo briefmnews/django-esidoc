@@ -7,14 +7,12 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('django_esidoc', '0001_initial'),
-    ]
+    dependencies = [("django_esidoc", "0001_initial")]
 
     operations = [
         migrations.AddField(
-            model_name='institution',
-            name='ends_at',
+            model_name="institution",
+            name="ends_at",
             field=models.DateField(null=True, verbose_name="Date de fin d'abonnement"),
-        ),
+        )
     ]
