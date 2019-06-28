@@ -37,3 +37,4 @@ class InstitutionViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = InstitutionSerializer
     authentication_classes = (QueryStringAuthentication,)
     permission_classes = (IsAuthenticated,)
+    pagination_class = None
