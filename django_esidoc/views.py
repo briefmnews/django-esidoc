@@ -4,7 +4,9 @@ from __future__ import unicode_literals
 from django.views.generic import RedirectView
 
 from rest_framework import viewsets
+from rest_framework.permissions import IsAuthenticated
 
+from .authentication import QueryStringAuthentication
 from .models import Institution
 from .serializers import InstitutionSerializer
 from .utils import get_cas_client, get_redirect_url
@@ -33,3 +35,5 @@ class LogoutRedirectView(RedirectView):
 class InstitutionViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Institution.objects.all()
     serializer_class = InstitutionSerializer
+    authentication_classes = (QueryStringAuthentication,)
+    permission_classes = (IsAuthenticated,)

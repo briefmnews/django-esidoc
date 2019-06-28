@@ -1,5 +1,6 @@
 -r requirements.txt
 Django==1.11.21
+ipdb==0.12
 pytest==4.4.1
 pytest-cov==2.6.1
 pytest-factoryboy==2.0.2
