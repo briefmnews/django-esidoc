@@ -25,7 +25,7 @@ class TestCASMiddleware(object):
         response = cas_middleware(request_builder.build())
 
         # THEN
-        assert cas_middleware.get_response().path == u"/"
+        assert cas_middleware.get_response().path == "/"
         assert "sso_id" not in response.GET
         assert "ticket" not in response.GET
 
