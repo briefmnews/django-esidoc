@@ -1,5 +1,5 @@
 # django-esidoc
-[![Python 2.7](https://img.shields.io/badge/python-2.7-blue.svg)](https://www.python.org/downloads/release/python-270/) 
+[![Python 2.7](https://img.shields.io/badge/python-2.7%20%7C%203.6%20%7C%203.7-blue.svg)](https://www.python.org/downloads/release/python-270/) 
 [![Django 1.11](https://img.shields.io/badge/django-1.11-blue.svg)](https://docs.djangoproject.com/en/1.11/)
 [![Build Status](https://travis-ci.org/briefmnews/django-esidoc.svg?branch=master)](https://travis-ci.org/briefmnews/django-esidoc)
 [![codecov](https://codecov.io/gh/briefmnews/django-esidoc/branch/master/graph/badge.svg)](https://codecov.io/gh/briefmnews/django-esidoc)

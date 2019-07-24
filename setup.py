@@ -11,7 +11,7 @@ setup(
     packages=["django_esidoc", "django_esidoc.migrations"],
     python_requires=">=2.7",
     install_requires=[
-        "Django>=1.11.0",
+        "Django>=1.11",
         "djangorestframework>=3.8.2",
         "python-cas==1.4.0",
         "lxml>=4.2.5",
