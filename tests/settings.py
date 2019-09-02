@@ -14,4 +14,4 @@ INSTALLED_APPS = (
 
 DATABASES = {"default": {"ENGINE": "django.db.backends.sqlite3"}}
 
-ESIDOC_ACCESS_TOKEN = 'my-secret-token'
+ESIDOC_ACCESS_TOKEN = "my-secret-token"

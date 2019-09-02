@@ -16,7 +16,9 @@ class TestCASBackend(object):
         """
         # WHEN
         backend = CASBackend()
-        authenticated_user = backend.authenticate(request=None, uai_number=user.institution.uai)
+        authenticated_user = backend.authenticate(
+            request=None, uai_number=user.institution.uai
+        )
 
         # THEN
         assert authenticated_user is not None
@@ -33,7 +35,9 @@ class TestCASBackend(object):
 
         # WHEN
         backend = CASBackend()
-        authenticated_user = backend.authenticate(request=None, uai_number=user.institution.uai)
+        authenticated_user = backend.authenticate(
+            request=None, uai_number=user.institution.uai
+        )
 
         # THEN
         assert authenticated_user is None
