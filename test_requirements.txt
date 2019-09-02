@@ -1,5 +1,5 @@
 -r requirements.txt
-Django==1.11.21
+Django==2.2.4
 ipdb==0.12
 pytest==4.4.1
 pytest-cov==2.6.1
