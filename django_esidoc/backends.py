@@ -10,7 +10,7 @@ class CASBackend(object):
     """
 
     @staticmethod
-    def authenticate(uai_number):
+    def authenticate(request, uai_number):
         try:
             user = User.objects.get(institution__uai=uai_number, is_active=True)
             return user
