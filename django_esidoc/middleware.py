@@ -8,6 +8,7 @@ from xml.etree import ElementTree
 from xml.etree.ElementTree import ParseError
 
 from .utils import get_cas_client
+from .models import Institution
 
 ESIDOC_INACTIVE_USER_REDIRECT = getattr(settings, "ESIDOC_INACTIVE_USER_REDIRECT", "/")
 
@@ -23,8 +24,14 @@ class CASMiddleware(object):
         cas_ticket = request.GET.get("ticket", "")
 
         if uai_number:
+            uai_number = uai_number.upper()
+            try:
+                ent = Institution.objects.get(uai=uai_number).ent
+            except Institution.DoesNotExist:
+                return HttpResponseRedirect(ESIDOC_INACTIVE_USER_REDIRECT)
 
-            request.session["uai_number"] = uai_number.upper()
+            request.session["uai_number"] = uai_number
+            request.session["ent"] = ent
 
             url = self.get_cas_login_url(request)
             return HttpResponseRedirect(url)
@@ -61,12 +68,18 @@ class CASMiddleware(object):
 
         client = get_cas_client(request)
         response = client.get_verification_response(cas_ticket)
+        tree = ElementTree.fromstring(response)
+        ns = {"cas": "http://www.yale.edu/tp/cas"}
 
         try:
-            tree = ElementTree.fromstring(response)
-            ns = {"cas": "http://www.yale.edu/tp/cas"}
             auth_success_element = tree.find("cas:authenticationSuccess", ns)
-            uai_element = auth_success_element.find("cas:ENTStructureUAI", ns)
-            return uai_element.text
+
+            if request.session.get("ent") == "ESIDOC":
+                uai_element = "cas:ENTStructureUAI"
+            else:
+                uai_element = "cas:ENTPersonStructRattachRNE"
+
+            uai = auth_success_element.find(uai_element, ns)
+            return uai.text
         except (AttributeError, ParseError):
             return None
