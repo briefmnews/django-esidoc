@@ -33,7 +33,7 @@ class LogoutRedirectView(RedirectView):
 
 
 class InstitutionViewSet(viewsets.ReadOnlyModelViewSet):
-    queryset = Institution.objects.all()
+    queryset = Institution.objects.filter(ent="ESIDOC")
     serializer_class = InstitutionSerializer
     authentication_classes = (QueryStringAuthentication,)
     permission_classes = (IsAuthenticated,)
