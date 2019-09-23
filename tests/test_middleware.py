@@ -91,3 +91,18 @@ class TestCASMiddleware(object):
 
         # THEN
         assert cas_middleware.validate_ticket.call_count == 1
+
+    def test_institution_does_not_exist(self, request_builder):
+        """Testing the __call_ method with an unknown institution"""
+        # GIVEN
+        uai_number = "fake-uai"
+        query_params = "/?sso_id={}".format(uai_number)
+        request = request_builder.build(query_params)
+        request.session["uai_number"] = uai_number
+        cas_middleware = CASMiddleware(request)
+
+        # WHEN
+        cas_middleware(request)
+
+        # THEN
+        assert cas_middleware.get_response.path == "/"
