@@ -4,10 +4,10 @@
 [![Build Status](https://travis-ci.org/briefmnews/django-esidoc.svg?branch=master)](https://travis-ci.org/briefmnews/django-esidoc)
 [![codecov](https://codecov.io/gh/briefmnews/django-esidoc/branch/master/graph/badge.svg)](https://codecov.io/gh/briefmnews/django-esidoc)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/python/black)  
-Handle login and ticket validation for 
-[e-sidoc](https://www.reseau-canope.fr/notice/e-sidoc.html).
+Handle login and ticket validation for french ENT (Etablissements Numériques de Travail) like 
+[e-sidoc](https://www.reseau-canope.fr/notice/e-sidoc.html) or ENT Hauts-de-France (HDF).
 This package allow you to manage institutions from the back office and
-connect with the e-sidoc CAS.
+connect with the e-sidoc or HDF CAS.
 
 ## Installation
 Install with [pip](https://pip.pypa.io/en/stable/):
@@ -86,7 +86,7 @@ Here is an example of a request url to start the login process:
 https://www.exemple.com/?sso_id=9990075c
 ```
 
-## API endpoint
+## API endpoint (only for Esidoc)
 In order to expose the `Institutions` UAI number and end of subscription date, the following
 API endpoint is available:
 ```python
