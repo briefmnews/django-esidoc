@@ -14,7 +14,10 @@ ESIDOC_INACTIVE_USER_REDIRECT = getattr(settings, "ESIDOC_INACTIVE_USER_REDIRECT
 
 
 class CASMiddleware(object):
-    """Middleware that allows CAS authentication with e-sidoc"""
+    """
+    Middleware that allows CAS authentication with different kind of ENT
+    (Esidoc, ENT Hauts-de-France, ...)
+    """
 
     def __init__(self, get_response):
         self.get_response = get_response
@@ -38,14 +41,13 @@ class CASMiddleware(object):
 
         elif cas_ticket:
 
-            uai_number = self.validate_ticket(request, cas_ticket)
+            uai_numbers = self.validate_ticket(request, cas_ticket)
 
-            if uai_number == request.session.get("uai_number"):
-                user = authenticate(uai_number=uai_number)
-                if user:
-                    login(request, user)
-                else:
-                    return HttpResponseRedirect(ESIDOC_INACTIVE_USER_REDIRECT)
+            user = authenticate(uai_numbers=uai_numbers)
+            if user:
+                login(request, user)
+            else:
+                return HttpResponseRedirect(ESIDOC_INACTIVE_USER_REDIRECT)
 
         response = self.get_response(request)
 
@@ -79,7 +81,10 @@ class CASMiddleware(object):
             else:
                 uai_element = "cas:ENTPersonStructRattachRNE"
 
-            uai = auth_success_element.find(uai_element, ns)
-            return uai.text
+            uai_numbers = [
+                uai.text for uai in auth_success_element.findall(uai_element, ns)
+            ]
+            return uai_numbers
+
         except (AttributeError, ParseError):
             return None
