@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cas:serviceResponse xmlns:cas="http://www.yale.edu/tp/cas">
+   <cas:authenticationSuccess>
+      <cas:user>enseignant.brief-connecteur</cas:user>
+      <cas:uid>b4029a1d-607b-49af-b000-25ca49d13a81</cas:uid>
+      <cas:ENTPersonStructRattachRNE>9999999Q</cas:ENTPersonStructRattachRNE>
+      <cas:ENTPersonStructRattachRNE>8888888Q</cas:ENTPersonStructRattachRNE>
+      <cas:ENTPersonProfils>National_3</cas:ENTPersonProfils>
+   </cas:authenticationSuccess>
+</cas:serviceResponse>

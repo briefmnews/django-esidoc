@@ -106,3 +106,19 @@ class TestCASMiddleware(object):
 
         # THEN
         assert cas_middleware.get_response.path == "/"
+
+    def test_validate_ticket_with_multiple_institutions(
+        self, mock_get_verification_response_with_multiple_institutions, request_builder
+    ):
+        # GIVEN
+        uai_number = "9999999Q"
+        query_params = "/?sso_id={}".format(uai_number)
+        request = request_builder.build(query_params)
+        request.session["uai_number"] = uai_number
+
+        # WHEN
+        uai_numbers = CASMiddleware.validate_ticket(request, "dummy-ticket")
+
+        # THEN
+        assert uai_number in uai_numbers
+        mock_get_verification_response_with_multiple_institutions.assert_called_once()

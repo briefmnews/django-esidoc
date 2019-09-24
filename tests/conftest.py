@@ -46,3 +46,14 @@ class RequestBuilder(object):
         request.session.save()
 
         return request
+
+
+@pytest.fixture
+def mock_get_verification_response_with_multiple_institutions(mocker):
+    with open(
+        "tests/fixtures/valid_ticket_with_multiple_institutions.xml", "r"
+    ) as xml_response:
+        return mocker.patch(
+            "cas.CASClientV2.get_verification_response",
+            return_value=xml_response.read(),
+        )
