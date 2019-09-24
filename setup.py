@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name="django-esidoc",
-    version="0.1.5",
+    version="0.1.6",
     description="Handle login and ticket validation for e-sidoc",
     url="https://github.com/briefmnews/django-esidoc",
     author="Brief.me",

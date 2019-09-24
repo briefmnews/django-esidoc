@@ -16,7 +16,7 @@ def get_redirect_url(request, path=None):
 
 def _get_cas_base_url(uai_number):
     """Get the CAS base url format"""
-    return "https://{}.esidoc.fr/cas/".format(uai_number)
+    return "https://{}-cas.esidoc.fr/cas/".format(uai_number)
 
 
 def get_cas_client(request):

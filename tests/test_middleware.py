@@ -42,7 +42,7 @@ class TestCASMiddleware(object):
         response = cas_middleware(request)
 
         # THEN
-        assert "https://{}.esidoc.fr".format(uai_number) in response.url
+        assert "https://{}-cas.esidoc.fr".format(uai_number) in response.url
 
     def test_when_cas_ticket_valid(
         self, mock_validate_valid_ticket, user, request_builder
