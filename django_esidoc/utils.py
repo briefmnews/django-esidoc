@@ -23,6 +23,8 @@ def _get_cas_base_url(uai_number, ent):
 
     if ent == "ESIDOC":
         url = "https://{}-cas.esidoc.fr/cas/".format(uai_number)
+    elif ent == "GAR":
+        url = "https://idp-auth.partenaire.test-gar.education.fr/"
     else:
         url = "https://enthdf.fr/cas/"
 

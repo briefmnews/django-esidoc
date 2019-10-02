@@ -26,20 +26,7 @@ class CASMiddleware(object):
         uai_number = request.GET.get("sso_id", "")
         cas_ticket = request.GET.get("ticket", "")
 
-        if uai_number:
-            uai_number = uai_number.upper()
-            try:
-                ent = Institution.objects.get(uai=uai_number).ent
-            except Institution.DoesNotExist:
-                return HttpResponseRedirect(ESIDOC_INACTIVE_USER_REDIRECT)
-
-            request.session["uai_number"] = uai_number
-            request.session["ent"] = ent
-
-            url = self.get_cas_login_url(request)
-            return HttpResponseRedirect(url)
-
-        elif cas_ticket:
+        if cas_ticket:
 
             uai_numbers = self.validate_ticket(request, cas_ticket)
 
@@ -48,6 +35,24 @@ class CASMiddleware(object):
                 login(request, user)
             else:
                 return HttpResponseRedirect(ESIDOC_INACTIVE_USER_REDIRECT)
+
+        elif uai_number:
+            uai_number = uai_number.upper()
+
+            if uai_number == "GAR":
+                request.session["uai_number"] = None
+                request.session["ent"] = "GAR"
+            else:
+                try:
+                    ent = Institution.objects.get(uai=uai_number).ent
+                except Institution.DoesNotExist:
+                    return HttpResponseRedirect(ESIDOC_INACTIVE_USER_REDIRECT)
+
+                request.session["uai_number"] = uai_number
+                request.session["ent"] = ent
+
+            url = self.get_cas_login_url(request)
+            return HttpResponseRedirect(url)
 
         response = self.get_response(request)
 
