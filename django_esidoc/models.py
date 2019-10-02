@@ -13,6 +13,7 @@ class Institution(models.Model):
     ENVIRONNEMENTS_NUMERIQUES_DE_TRAVAIL = [
         ("ESIDOC", "Esidoc"),
         ("HDF", "Hauts-de-France"),
+        ("GAR", "GAR"),
     ]
 
     uai = models.CharField(
