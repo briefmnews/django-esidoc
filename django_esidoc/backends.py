@@ -1,21 +1,19 @@
-# -*- coding: utf-8 -*-
 from django.contrib.auth import get_user_model
 
 User = get_user_model()
 
 
-class CASBackend(object):
+class CASBackend:
     """
     CAS authentication with UAI (Unité Administrative Immatriculée) number
     """
 
     @staticmethod
-    def authenticate(request, uai_number):
-        try:
-            user = User.objects.get(institution__uai=uai_number, is_active=True)
-            return user
-        except User.DoesNotExist:
-            return None
+    def authenticate(request, uai_numbers):
+        user = User.objects.filter(
+            institution__uai__in=uai_numbers, is_active=True
+        ).last()
+        return user
 
     @staticmethod
     def get_user(user_id):
