@@ -23,7 +23,7 @@ class CASMiddleware(object):
         self.get_response = get_response
 
     def __call__(self, request):
-        uai_number = request.GET.get("sso_id", "")
+        uai_number = request.GET.get(settings.ENT_QUERY_STRING_TRIGGER, "")
         cas_ticket = request.GET.get("ticket", "")
 
         if cas_ticket:

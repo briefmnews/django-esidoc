@@ -10,7 +10,9 @@ def get_redirect_url(request, path=None):
 
     scheme = request.scheme
     host = request.get_host()
-    if path:
+    if request.session.get("ent") == "GAR":
+        url = "{}://{}/?{}={}".format(scheme, host, settings.ENT_QUERY_STRING_TRIGGER, "gar")
+    elif path:
         url = "{}://{}{}".format(scheme, host, path)
     else:
         url = "{}://{}".format(scheme, host)
