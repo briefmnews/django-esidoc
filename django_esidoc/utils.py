@@ -38,11 +38,18 @@ def get_cas_client(request):
 
     uai_number = request.session.get("uai_number")
     ent = request.session.get("ent")
+    if ent == "GAR":
+        cas_version = 3
+    else:
+        cas_version = 2
+
     server_url = _get_cas_base_url(uai_number, ent)
 
     next_page = request.path
     service_url = get_redirect_url(request, next_page)
 
-    client = CASClient(version=2, server_url=server_url, service_url=service_url)
+    client = CASClient(
+        version=cas_version, server_url=server_url, service_url=service_url
+    )
 
     return client
