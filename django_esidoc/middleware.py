@@ -80,8 +80,12 @@ class CASMiddleware(object):
 
         try:
             auth_success_element = tree.find("cas:authenticationSuccess", ns)
+            ent = request.session.get("ent", "")
 
-            if request.session.get("ent") == "ESIDOC":
+            if ent == "GAR":
+                auth_success_element = auth_success_element.find("cas:attributes", ns)
+                uai_element = "cas:UAI"
+            elif ent == "ESIDOC":
                 uai_element = "cas:ENTStructureUAI"
             else:
                 uai_element = "cas:ENTPersonStructRattachRNE"
