@@ -28,7 +28,3 @@ class Institution(models.Model):
         default="ESIDOC",
         max_length=6,
     )
-
-    def save(self, *args, **kwargs):
-        self.uai = self.uai.upper()
-        super(Institution, self).save(*args, **kwargs)
