@@ -27,7 +27,6 @@ class CASMiddleware(object):
         cas_ticket = request.GET.get("ticket", "")
 
         if cas_ticket:
-
             uai_numbers = self.validate_ticket(request, cas_ticket)
 
             user = authenticate(uai_numbers=uai_numbers)

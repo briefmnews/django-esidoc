@@ -23,12 +23,12 @@ def get_redirect_url(request, path=None):
 def _get_cas_base_url(uai_number, ent):
     """Get the CAS base url format depending on the ENT"""
 
-    if ent == "ESIDOC":
-        url = "https://{}-cas.esidoc.fr/cas/".format(uai_number)
-    elif ent == "GAR":
-        url = "https://idp-auth.partenaire.test-gar.education.fr/"
+    if ent == "GAR":
+        url = settings.ENT_GAR_BASE_URL
+    elif ent == "ESIDOC":
+        url = settings.ENT_ESIDOC_BASE_URL.format(uai_number)
     else:
-        url = "https://enthdf.fr/cas/"
+        url = settings.ENT_HDF_BASE_URL
 
     return url
 
