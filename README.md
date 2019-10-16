@@ -4,10 +4,8 @@
 [![Build Status](https://travis-ci.org/briefmnews/django-esidoc.svg?branch=master)](https://travis-ci.org/briefmnews/django-esidoc)
 [![codecov](https://codecov.io/gh/briefmnews/django-esidoc/branch/master/graph/badge.svg)](https://codecov.io/gh/briefmnews/django-esidoc)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/python/black)  
-Handle login and ticket validation for french ENT (Etablissements Numériques de Travail) like 
-[e-sidoc](https://www.reseau-canope.fr/notice/e-sidoc.html) or ENT Hauts-de-France (HDF).
-This package allow you to manage institutions from the back office and
-connect with the e-sidoc or HDF CAS.
+Handle CAS login via sso for french ENT (Etablissements Numériques de Travail) like 
+[e-sidoc](https://www.reseau-canope.fr/notice/e-sidoc.html) or ENT Hauts-de-France (HDF) or Gestionnaire d'accès Aux Ressources (GAR).
 
 ## Installation
 Install with [pip](https://pip.pypa.io/en/stable/):
@@ -66,7 +64,19 @@ Next, you need to run the migrations in order to update your database schema.
 python manage.py migrate
 ```
 
-### (Optional) Default redirection
+### Mandatory settings
+Here is the list of all the mandatory settings:
+```python
+ENT_ESIDOC_BASE_URL
+ENT_GAR_BASE_URL
+ENT_HDF_BASE_URL
+ENT_GAR_SUBSCRIPTION_PREFIX
+ENT_GAR_CERTIFICATE_PATH
+ENT_GAR_KEY_PATH
+ENT_QUERY_STRING_TRIGGER
+```
+
+### Optional settings - Default redirection
 You can set a default path redirection for inactive user by adding this line to 
 your settings:
 ```python
