@@ -15,7 +15,7 @@ class TestLogoutRedirectView(object):
         The logout view should redirect to esidoc a 'service' query string
         """
         # GIVEN
-        request = request_builder.build(reverse("esidoc_logout"))
+        request = request_builder.get(reverse("esidoc_logout"))
 
         # WHEN
         response = LogoutRedirectView.as_view()(request)
@@ -29,7 +29,7 @@ class TestInstitutionViewSet(object):
     def test_authentication_works(self, request_builder):
         # GIVEN
         url = "{}?token={}".format(reverse("esidoc_institutions"), "my-secret-token")
-        request = request_builder.build(url)
+        request = request_builder.get(url)
 
         # WHEN
         response = InstitutionViewSet.as_view({"get": "list"})(request)
@@ -40,7 +40,7 @@ class TestInstitutionViewSet(object):
     def test_authenticate_with_wrong_token(self, request_builder):
         # GIVEN
         url = "{}?token={}".format(reverse("esidoc_institutions"), "wrong-token")
-        request = request_builder.build(url)
+        request = request_builder.get(url)
 
         # WHEN
         response = InstitutionViewSet.as_view({"get": "list"})(request)
@@ -52,7 +52,7 @@ class TestInstitutionViewSet(object):
 
     def test_authenticate_without_token(self, request_builder):
         # GIVEN
-        request = request_builder.build(reverse("esidoc_institutions"))
+        request = request_builder.get(reverse("esidoc_institutions"))
 
         # WHEN
         response = InstitutionViewSet.as_view({"get": "list"})(request)

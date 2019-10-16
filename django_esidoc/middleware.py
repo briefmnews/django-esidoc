@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from django.http import HttpResponseRedirect
 
 from django.conf import settings
@@ -7,13 +6,14 @@ from django.contrib.auth import login, authenticate
 from xml.etree import ElementTree
 from xml.etree.ElementTree import ParseError
 
+from .backends import CASBackend
 from .utils import get_cas_client
 from .models import Institution
 
 ESIDOC_INACTIVE_USER_REDIRECT = getattr(settings, "ESIDOC_INACTIVE_USER_REDIRECT", "/")
 
 
-class CASMiddleware(object):
+class CASMiddleware:
     """
     Middleware that allows CAS authentication with different kind of ENT
     (Esidoc, ENT Hauts-de-France, ...)
@@ -29,7 +29,7 @@ class CASMiddleware(object):
         if cas_ticket:
             uai_numbers = self.validate_ticket(request, cas_ticket)
 
-            user = authenticate(uai_numbers=uai_numbers)
+            user = CASBackend.authenticate(request, uai_numbers=uai_numbers)
             if user:
                 login(request, user)
             else:
@@ -74,10 +74,10 @@ class CASMiddleware(object):
 
         client = get_cas_client(request)
         response = client.get_verification_response(cas_ticket)
-        tree = ElementTree.fromstring(response)
-        ns = {"cas": "http://www.yale.edu/tp/cas"}
 
         try:
+            tree = ElementTree.fromstring(response)
+            ns = {"cas": "http://www.yale.edu/tp/cas"}
             auth_success_element = tree.find("cas:authenticationSuccess", ns)
             ent = request.session.get("ent", "")
 

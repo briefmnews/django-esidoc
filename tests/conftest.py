@@ -15,7 +15,7 @@ def user():
 
 @pytest.fixture
 def mock_validate_valid_ticket(mocker, user):
-    mocker.patch(
+    return mocker.patch(
         "django_esidoc.middleware.CASMiddleware.validate_ticket",
         return_value=user.institution.uai,
     )
@@ -23,8 +23,8 @@ def mock_validate_valid_ticket(mocker, user):
 
 @pytest.fixture
 def mock_validate_invalid_ticket(mocker):
-    mocker.patch(
-        "django_esidoc.middleware.CASMiddleware.validate_ticket", return_value=None
+    return mocker.patch(
+        "django_esidoc.middleware.CASMiddleware.validate_ticket", return_value=[]
     )
 
 
@@ -36,9 +36,9 @@ def request_builder():
 
 class RequestBuilder(object):
     @staticmethod
-    def build(query_params="?"):
+    def get(path="?"):
         rf = RequestFactory()
-        request = rf.get(query_params)
+        request = rf.get(path)
         request.user = AnonymousUser()
 
         middleware = SessionMiddleware()
@@ -49,10 +49,15 @@ class RequestBuilder(object):
 
 
 @pytest.fixture
-def mock_get_verification_response_with_multiple_institutions(mocker):
-    with open(
-        "tests/fixtures/valid_ticket_with_multiple_institutions.xml", "r"
-    ) as xml_response:
+def mock_verification_response(mocker, ent):
+    if ent == "GAR":
+        file = "tests/fixtures/valid_ticket_gar.xml"
+    elif ent == "ESIDOC":
+        file = "tests/fixtures/valid_ticket_esidoc.xml"
+    else:
+        file = "tests/fixtures/valid_ticket_hdf_with_multiple_institutions.xml"
+
+    with open(file, "r") as xml_response:
         return mocker.patch(
             "cas.CASClientV2.get_verification_response",
             return_value=xml_response.read(),

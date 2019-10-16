@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cas:serviceResponse xmlns:cas="http://www.yale.edu/tp/cas">
+   <cas:authenticationSuccess>
+      <cas:user>122</cas:user>
+      <cas:user_data>
+         <crdp_user>
+            <RNE>9990075c</RNE>
+            <NO_EMPRUNTEUR_M>122</NO_EMPRUNTEUR_M>
+            <CATEGORIE_M>El\xc3\xa8ve</CATEGORIE_M>
+            <name>Editeurstiers</name>
+            <account_type>eleve</account_type>
+         </crdp_user>
+         <RNE>9990075c</RNE>
+         <NO_EMPRUNTEUR_M>122</NO_EMPRUNTEUR_M>
+         <CATEGORIE_M>El\xc3\xa8ve</CATEGORIE_M>
+         <name>Editeurstiers</name>
+         <account_type>eleve</account_type>
+      </cas:user_data>
+      <cas:ENTPersonStructRattachRNE>9990075C</cas:ENTPersonStructRattachRNE>
+      <cas:ENTStructureUAI>9990075C</cas:ENTStructureUAI>
+      <cas:rne>9990075C</cas:rne>
+      <cas:ENTEleveNivFormation />
+      <cas:ENTEleveClasses />
+      <cas:ENTPersonProfils>National_1</cas:ENTPersonProfils>
+      <cas:uid>122</cas:uid>
+   </cas:authenticationSuccess>
+</cas:serviceResponse>
