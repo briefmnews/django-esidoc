@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+import datetime
 import pytest
 
 from django.contrib.auth.models import AnonymousUser
@@ -11,6 +11,13 @@ from .factories import UserFactory
 @pytest.fixture
 def user():
     return UserFactory()
+
+
+@pytest.fixture
+def user_without_institution():
+    user = UserFactory()
+    user.institution.delete()
+    return user
 
 
 @pytest.fixture
@@ -62,3 +69,57 @@ def mock_verification_response(mocker, ent):
             "cas.CASClientV2.get_verification_response",
             return_value=xml_response.read(),
         )
+
+
+@pytest.fixture
+def response_from_gar():
+    """Create a response object from GAR ent"""
+    return ResponseBuilder
+
+
+class ResponseBuilder:
+    status_code = None
+    text = None
+
+    def __init__(self, status_code, message):
+        self.status_code = status_code
+        self.text = message
+
+
+@pytest.fixture
+def form_data():
+    return FormDataBuilder
+
+
+class FormDataBuilder:
+    institution = None
+    ent = None
+
+    def __init__(self, institution=None, ent=None):
+        self.institution = institution
+        self.ent = ent
+
+    @property
+    def data(self):
+        if self.institution:
+            form_data = {
+                "ent": self.institution.ent,
+                "uai": self.institution.uai,
+                "institution_name": self.institution.institution_name,
+                "ends_at": self.institution.ends_at,
+                "user": self.institution.user.id,
+            }
+        else:
+            user = UserFactory()
+            user.institution.delete()
+            form_data = {
+                "ent": self.ent,
+                "uai": "00000f",
+                "institution_name": "dummy",
+                "ends_at": datetime.datetime.today(),
+                "user": user.id,
+            }
+
+        form_data["ent"] = self.ent if self.ent else form_data["ent"]
+
+        return form_data

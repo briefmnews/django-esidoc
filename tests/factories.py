@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+import datetime
 import factory
 
 from django.contrib.auth import get_user_model
@@ -12,6 +12,8 @@ class InstitutionFactory(factory.django.DjangoModelFactory):
 
     institution_name = factory.Sequence(lambda n: "Lycée {0}".format(n))
     uai = factory.Sequence(lambda n: "{0}".format(n))
+    ends_at = datetime.datetime.today()
+    ent = "ESIDOC"
 
 
 class UserFactory(factory.django.DjangoModelFactory):
