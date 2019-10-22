@@ -11,6 +11,7 @@ from .utils import get_cas_client
 from .models import Institution
 
 ESIDOC_INACTIVE_USER_REDIRECT = getattr(settings, "ESIDOC_INACTIVE_USER_REDIRECT", "/")
+ENT_QUERY_STRING_TRIGGER = getattr(settings, "ENT_QUERY_STRING_TRIGGER", "sso_id")
 
 
 class CASMiddleware:
@@ -23,7 +24,7 @@ class CASMiddleware:
         self.get_response = get_response
 
     def __call__(self, request):
-        uai_number = request.GET.get(settings.ENT_QUERY_STRING_TRIGGER, "")
+        uai_number = request.GET.get(ENT_QUERY_STRING_TRIGGER)
         cas_ticket = request.GET.get("ticket", "")
 
         if cas_ticket:
