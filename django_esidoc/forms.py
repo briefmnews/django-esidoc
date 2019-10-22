@@ -5,17 +5,14 @@ from datetime import datetime
 from django.conf import settings
 from django.forms import ModelForm, ValidationError
 
-from .models import Institution
-
-ENT_GAR_SUBSCRIPTION_PREFIX = getattr(settings, "ENT_GAR_SUBSCRIPTION_PREFIX", "")
-ENT_GAR_BASE_SUBSCRIPTION_URL = getattr(
-    settings,
-    "ENT_GAR_BASE_SUBSCRIPTION_URL",
-    "https://abonnement.partenaire.test-gar.education.fr/",
+from .gar import (
+    delete_gar_subscription,
+    get_gar_certificate,
+    get_gar_headers,
+    get_gar_request_url,
+    get_gar_subscription_id,
 )
-
-ENT_GAR_CERTIFICATE_PATH = getattr(settings, "ENT_GAR_CERTIFICATE_PATH", "")
-ENT_GAR_KEY_PATH = getattr(settings, "ENT_GAR_KEY_PATH", "")
+from .models import Institution
 
 ENT_GAR_DISTRIBUTOR_ID = getattr(settings, "ENT_GAR_DISTRIBUTOR_ID", "")
 ENT_GAR_RESOURCES_ID = getattr(settings, "ENT_GAR_RESOURCES_ID", "")
@@ -35,7 +32,7 @@ class InstitutionForm(ModelForm):
         if ent == "GAR":
             self._create_or_update_gar_subscription()
         elif (self.initial.get("ent") == "GAR") and ("ent" in self.changed_data):
-            self._delete_gar_subscription()
+            delete_gar_subscription(self.clean_uai())
 
         return ent
 
@@ -56,18 +53,10 @@ class InstitutionForm(ModelForm):
             if response.status_code != 200:
                 raise ValidationError(response.text)
 
-    def _delete_gar_subscription(self):
-        url = self._get_gar_request_url()
-        cert = self._get_gar_certificate()
-        headers = self._get_gar_headers()
-        response = requests.delete(url, cert=cert, headers=headers)
-        if response.status_code != 204:
-            raise ValidationError(response.text)
-
     def _get_response_from_gar(self, http_method):
-        url = self._get_gar_request_url()
-        cert = self._get_gar_certificate()
-        headers = self._get_gar_headers()
+        url = get_gar_request_url(self.clean_uai())
+        cert = get_gar_certificate()
+        headers = get_gar_headers()
         response = requests.request(
             http_method,
             url,
@@ -105,7 +94,7 @@ class InstitutionForm(ModelForm):
            <publicCible>ENSEIGNANT</publicCible>
            <publicCible>DOCUMENTALISTE</publicCible>
         </abonnement>""".format(
-            subscription_id=self._get_gar_subscription_id(uai),
+            subscription_id=get_gar_subscription_id(uai),
             distributor_id=ENT_GAR_DISTRIBUTOR_ID,
             resources_id=ENT_GAR_RESOURCES_ID,
             organization_name=ENT_GAR_ORGANIZATION_NAME,
@@ -118,28 +107,3 @@ class InstitutionForm(ModelForm):
             xml = xml.replace("<uaiEtab>{uai}</uaiEtab>".format(uai=uai), "")
 
         return xml
-
-    @staticmethod
-    def _get_gar_subscription_id(uai):
-        """
-        The id of the subscription in the GAR.
-        It needs to be unique even among all organizations
-        """
-        subscription_id = "{}{}".format(ENT_GAR_SUBSCRIPTION_PREFIX, uai)
-        return subscription_id
-
-    def _get_gar_request_url(self):
-        base_url = ENT_GAR_BASE_SUBSCRIPTION_URL
-        subscription_id = self._get_gar_subscription_id(self.clean_uai())
-        url = "{}{}".format(base_url, subscription_id)
-        return url
-
-    @staticmethod
-    def _get_gar_certificate():
-        cert = (ENT_GAR_CERTIFICATE_PATH, ENT_GAR_KEY_PATH)
-        return cert
-
-    @staticmethod
-    def _get_gar_headers():
-        headers = {"Content-Type": "application/xml"}
-        return headers
