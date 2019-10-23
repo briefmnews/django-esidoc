@@ -61,6 +61,10 @@ def mock_verification_response(mocker, ent):
         file = "tests/fixtures/valid_ticket_gar.xml"
     elif ent == "ESIDOC":
         file = "tests/fixtures/valid_ticket_esidoc.xml"
+    elif ent == "OCCITANIE":
+        file = "tests/fixtures/valid_ticket_occitanie.xml"
+    elif ent == "OCCITANIEAGR":
+        file = "tests/fixtures/valid_ticket_occitanie_agr.xml"
     else:
         file = "tests/fixtures/valid_ticket_hdf_with_multiple_institutions.xml"
 

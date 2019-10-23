@@ -119,7 +119,13 @@ class TestCASMiddleware:
 
     @pytest.mark.parametrize(
         "uai_number, ent",
-        [("9999999Q", "HDF"), ("0561641E", "GAR"), ("9990075C", "ESIDOC")],
+        [
+            ("9999999Q", "HDF"),
+            ("0561641E", "GAR"),
+            ("9990075C", "ESIDOC"),
+            ("EXPDATA2MIDIPY", "OCCITANIE"),
+            ("031MONITORING", "OCCITANIEAGR"),
+        ],
     )
     def test_validate_ticket(
         self, uai_number, ent, mock_verification_response, request_builder
