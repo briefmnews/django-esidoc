@@ -6,6 +6,8 @@ ESIDOC_INACTIVE_USER_REDIRECT = getattr(settings, "ESIDOC_INACTIVE_USER_REDIRECT
 ENT_GAR_BASE_URL = getattr(settings, "ENT_GAR_BASE_URL", "")
 ENT_ESIDOC_BASE_URL = getattr(settings, "ENT_ESIDOC_BASE_URL", "{}")
 ENT_HDF_BASE_URL = getattr(settings, "ENT_HDF_BASE_URL", "")
+ENT_OCCITANIE_BASE_URL = getattr(settings, "ENT_OCCITANIE_BASE_URL", "")
+ENT_OCCITANIEAGR_BASE_URL = getattr(settings, "ENT_OCCITANIEAGR_BASE_URL", "")
 ENT_QUERY_STRING_TRIGGER = getattr(settings, "ENT_QUERY_STRING_TRIGGER", "sso_id")
 
 
@@ -31,6 +33,10 @@ def _get_cas_base_url(uai_number, ent):
         url = ENT_GAR_BASE_URL
     elif ent == "ESIDOC":
         url = ENT_ESIDOC_BASE_URL.format(uai_number)
+    elif ent == "OCCITANIE":
+        url = ENT_OCCITANIE_BASE_URL
+    elif ent == "OCCITANIEAGR":
+        url = ENT_OCCITANIEAGR_BASE_URL
     else:
         url = ENT_HDF_BASE_URL
 

@@ -39,9 +39,9 @@ class CASMiddleware:
         elif uai_number:
             uai_number = uai_number.upper()
 
-            if uai_number == "GAR":
+            if uai_number in ["GAR", "OCCITANIE", "OCCITANIEAGR"]:
                 request.session["uai_number"] = None
-                request.session["ent"] = "GAR"
+                request.session["ent"] = uai_number
             else:
                 try:
                     ent = Institution.objects.get(uai=uai_number).ent
@@ -87,11 +87,14 @@ class CASMiddleware:
                 uai_element = "cas:UAI"
             elif ent == "ESIDOC":
                 uai_element = "cas:ENTStructureUAI"
+            elif ent in ["OCCITANIE", "OCCITANIEAGR"]:
+                uai_element = "cas:rneCourant"
             else:
                 uai_element = "cas:ENTPersonStructRattachRNE"
 
             uai_numbers = [
-                uai.text for uai in auth_success_element.findall(uai_element, ns)
+                uai.text.upper()
+                for uai in auth_success_element.findall(uai_element, ns)
             ]
             return uai_numbers
 

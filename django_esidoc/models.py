@@ -1,6 +1,3 @@
-# -*- coding: utf-8 -*-
-from __future__ import unicode_literals
-
 from django.db import models
 
 from django.contrib.auth import get_user_model
@@ -14,10 +11,12 @@ class Institution(models.Model):
         ("ESIDOC", "Esidoc"),
         ("HDF", "Hauts-de-France"),
         ("GAR", "GAR"),
+        ("OCCITANIE", "Occitanie"),
+        ("OCCITANIEAGR", "Occitanie lycée agricole"),
     ]
 
     uai = models.CharField(
-        "Unité Administrative Immatriculée", max_length=8, unique=True
+        "Unité Administrative Immatriculée", max_length=14, unique=True
     )
     institution_name = models.CharField("Nom de l'institution", max_length=255)
     ends_at = models.DateField("Date de fin d'abonnement", null=True)
@@ -26,5 +25,5 @@ class Institution(models.Model):
         "Environnements Numériques de Travail",
         choices=ENVIRONNEMENTS_NUMERIQUES_DE_TRAVAIL,
         default="ESIDOC",
-        max_length=6,
+        max_length=12,
     )
