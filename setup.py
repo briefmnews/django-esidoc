@@ -2,8 +2,8 @@ from setuptools import setup
 
 setup(
     name="django-esidoc",
-    version="0.1.7",
-    description="Handle login and ticket validation for e-sidoc",
+    version="0.1.8",
+    description="Handle login and ticket validation for french ent (Esidoc, HDF, Occitanie and GAR)",
     url="https://github.com/briefmnews/django-esidoc",
     author="Brief.me",
     author_email="tech@brief.me",
@@ -20,14 +20,13 @@ setup(
     classifiers=[
         "Environment :: Web Environment",
         "Framework :: Django",
-        "Framework :: Django :: 1.11",
+        "Framework :: Django :: 2.2",
         "Operating System :: OS Independent",
         "Programming Language :: Python",
         "Topic :: Software Development :: Libraries :: Python Modules",
         "Programming Language :: Python",
-        "Programming Language :: Python :: 2",
-        "Programming Language :: Python :: 2.7",
         "Programming Language :: Python :: 3",
+        "Programming Language :: Python :: 3.7",
     ],
     zip_safe=False,
 )
