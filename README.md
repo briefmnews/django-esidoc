@@ -5,7 +5,8 @@
 [![codecov](https://codecov.io/gh/briefmnews/django-esidoc/branch/master/graph/badge.svg)](https://codecov.io/gh/briefmnews/django-esidoc)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/python/black)  
 Handle CAS login via sso for french ENT (Etablissements Numériques de Travail) like 
-[e-sidoc](https://www.reseau-canope.fr/notice/e-sidoc.html) or ENT Hauts-de-France (HDF) or Gestionnaire d'accès Aux Ressources (GAR).
+[e-sidoc](https://www.reseau-canope.fr/notice/e-sidoc.html) or ENT Hauts-de-France (HDF) or Gestionnaire d'accès Aux Ressources (GAR)
+or Occitanie (OCCITANIE) or Occitanie lycée agricole (OCCITANIEAGR).
 
 ## Installation
 Install with [pip](https://pip.pypa.io/en/stable/):
@@ -70,6 +71,8 @@ Here is the list of all the mandatory settings:
 ENT_ESIDOC_BASE_URL
 ENT_GAR_BASE_URL
 ENT_HDF_BASE_URL
+ENT_OCCITANIE_BASE_URL
+ENT_OCCITANIEAGR_BASE_URL
 ENT_GAR_SUBSCRIPTION_PREFIX
 ENT_GAR_CERTIFICATE_PATH
 ENT_GAR_KEY_PATH
