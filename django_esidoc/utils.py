@@ -16,8 +16,10 @@ def get_redirect_url(request, path=None):
 
     scheme = request.scheme
     host = request.get_host()
-    if request.session.get("ent") == "GAR":
-        url = "{}://{}/?{}={}".format(scheme, host, ENT_QUERY_STRING_TRIGGER, "gar")
+    if request.session.get("ent") in ["GAR", "OCCITANIE", "OCCITANIEAGR"]:
+        url = "{}://{}/?{}={}".format(
+            scheme, host, ENT_QUERY_STRING_TRIGGER, request.session.get("ent").lower()
+        )
     elif path:
         url = "{}://{}{}".format(scheme, host, path)
     else:
