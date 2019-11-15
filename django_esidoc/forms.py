@@ -88,7 +88,7 @@ class InstitutionForm(ModelForm):
            <finValidite>{end_date}T00:00:00</finValidite>
            <uaiEtab>{uai}</uaiEtab>
            <categorieAffectation>transferable</categorieAffectation>
-           <typeAffectation>ETABL</typeAffectation>
+           <typeAffectation>INDIV</typeAffectation>
            <nbLicenceGlobale>ILLIMITE</nbLicenceGlobale>
            <publicCible>ELEVE</publicCible>
            <publicCible>ENSEIGNANT</publicCible>
