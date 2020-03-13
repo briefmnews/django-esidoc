@@ -187,6 +187,7 @@ class BatchAddInstitutionsFormPreview(FormPreview):
         existing_users = User.objects.filter(email__in=emails)
         context["users_found_count"] = existing_users.count()
         context["users_not_found_count"] = len(emails) - existing_users.count()
+        context["users_not_found"] = set(emails) - set(existing_users.values_list("email", flat=True))
 
         return context
 

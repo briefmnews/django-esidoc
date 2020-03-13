@@ -12,6 +12,16 @@
            {{ users_not_found_count }} utilisateurs n'ont pas été trouvés.
         </li>
     </ul>
+    {% if users_not_found_count > 0 %}
+    <p>Liste des utilisateurs non trouvés :</p>
+    <ul>
+        {% for email in users_not_found %}
+        <li>
+            {{ email }}
+        </li>
+        {% endfor %}
+    </ul>
+    {% endif %}
 
 
     <form method="post">
