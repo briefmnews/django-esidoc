@@ -130,12 +130,22 @@ class BatchAddInstitutionForm(forms.Form):
     )
 
     def clean_institutions_data(self):
-        institutions_data = self._get_institution_fields(self.cleaned_data["institutions_data"])
+        institutions_data = self._get_institution_fields(
+            self.cleaned_data["institutions_data"]
+        )
         for institution_detail in institutions_data:
             ent = institution_detail[2]
-            ent_choices = [val[0] for val in Institution.ENVIRONNEMENTS_NUMERIQUES_DE_TRAVAIL]
+            ent_choices = [
+                val[0] for val in Institution.ENVIRONNEMENTS_NUMERIQUES_DE_TRAVAIL
+            ]
             if ent not in ent_choices:
-                raise ValidationError(_('ENTs must take ine of the following values: {}'.format(ent_choices)))
+                raise ValidationError(
+                    _(
+                        "ENTs must take ine of the following values: {}".format(
+                            ent_choices
+                        )
+                    )
+                )
 
         return institutions_data
 
@@ -149,19 +159,19 @@ class BatchAddInstitutionForm(forms.Form):
             try:
                 email = fields[0].lower().strip()
             except IndexError:
-                raise ValidationError(_('Email is madatory'))
+                raise ValidationError(_("Email is madatory"))
             try:
                 uai = fields[1].upper().strip()
             except IndexError:
-                raise ValidationError(_('Uai number is madatory'))
+                raise ValidationError(_("Uai number is madatory"))
             try:
                 ent = fields[2].upper().strip()
             except IndexError:
-                raise ValidationError(_('Ent is madatory'))
+                raise ValidationError(_("Ent is madatory"))
             try:
                 institution_name = fields[3].strip()
             except IndexError:
-                raise ValidationError(_('Institution name is madatory'))
+                raise ValidationError(_("Institution name is madatory"))
 
             ret.append((email, uai, ent, institution_name))
 
@@ -189,13 +199,14 @@ class BatchAddInstitutionsFormPreview(FormPreview):
             except User.DoesNotExist:
                 continue
 
-            Institution.objects.create(user=user, uai=institution_detail[1], ent=institution_detail[2], institution_name=institution_detail[3], ends_at=datetime.now())
+            Institution.objects.create(
+                user=user,
+                uai=institution_detail[1],
+                ent=institution_detail[2],
+                institution_name=institution_detail[3],
+                ends_at=datetime.now(),
+            )
 
-        messages.info(
-            request,
-            (
-                "La commande a bien été prise en compte."
-            ),
-        )
+        messages.info(request, ("La commande a bien été prise en compte."))
 
         return redirect(reverse("admin:django_esidoc_institution_changelist"))

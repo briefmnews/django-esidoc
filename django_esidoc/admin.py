@@ -4,7 +4,11 @@ from django.urls import path
 from functools import update_wrapper
 
 from .gar import delete_gar_subscription
-from .forms import BatchAddInstitutionForm, BatchAddInstitutionsFormPreview, InstitutionForm
+from .forms import (
+    BatchAddInstitutionForm,
+    BatchAddInstitutionsFormPreview,
+    InstitutionForm,
+)
 from .models import Institution
 
 
@@ -38,7 +42,7 @@ class InstitutionAdmin(admin.ModelAdmin):
                 "batch_add/",
                 wrap(BatchAddInstitutionsFormPreview(BatchAddInstitutionForm)),
                 name="add_institutions",
-            ),
+            )
         ]
 
         return custom_urls + urls
