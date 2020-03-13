@@ -27,3 +27,6 @@ class Institution(models.Model):
         default="ESIDOC",
         max_length=12,
     )
+
+    def __str__(self):
+        return "{} ({})".format(self.institution_name, self.uai)
