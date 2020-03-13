@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name="django-esidoc",
-    version="0.1.10",
+    version="0.1.11",
     description="Handle login and ticket validation for french ent (Esidoc, HDF, Occitanie and GAR)",
     url="https://github.com/briefmnews/django-esidoc",
     author="Brief.me",
@@ -28,5 +28,6 @@ setup(
         "Programming Language :: Python :: 3",
         "Programming Language :: Python :: 3.7",
     ],
+    include_package_data=True,
     zip_safe=False,
 )
