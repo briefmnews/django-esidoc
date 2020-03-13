@@ -180,7 +180,7 @@ class BatchAddInstitutionForm(forms.Form):
 
 class BatchAddInstitutionsFormPreview(FormPreview):
     preview_template = "django_esidoc/admin/preview.html"
-    form_template = "django_esidoc//admin/form.html"
+    form_template = "django_esidoc/admin/form.html"
 
     def process_preview(self, request, form, context):
         emails = [email for email, _, _, _ in form.cleaned_data["institutions_data"]]
