@@ -125,7 +125,9 @@ class BatchAddInstitutionForm(forms.Form):
         required=True,
         help_text=_(
             "Copy/paste the csv with the following format: email "
-            "(mandatory), uai (mandatory), ent (mandatory), intitution name (mandatory"
+            "(mandatory), uai (mandatory), ent (mandatory), intitution name (mandatory).<br>"
+            "GAR subscription cannot be added with batch subscribe. "
+            "You must create individual subscription."
         ),
     )
 
@@ -138,6 +140,7 @@ class BatchAddInstitutionForm(forms.Form):
             ent_choices = [
                 val[0] for val in Institution.ENVIRONNEMENTS_NUMERIQUES_DE_TRAVAIL
             ]
+            ent_choices.remove("GAR")
             if ent not in ent_choices:
                 raise ValidationError(
                     _(
@@ -187,7 +190,9 @@ class BatchAddInstitutionsFormPreview(FormPreview):
         existing_users = User.objects.filter(email__in=emails)
         context["users_found_count"] = existing_users.count()
         context["users_not_found_count"] = len(emails) - existing_users.count()
-        context["users_not_found"] = set(emails) - set(existing_users.values_list("email", flat=True))
+        context["users_not_found"] = set(emails) - set(
+            existing_users.values_list("email", flat=True)
+        )
 
         return context
 
@@ -208,6 +213,6 @@ class BatchAddInstitutionsFormPreview(FormPreview):
                 ends_at=datetime.now(),
             )
 
-        messages.info(request, ("La commande a bien été prise en compte."))
+        messages.info(request, _("La commande a bien été prise en compte."))
 
         return redirect(reverse("admin:django_esidoc_institution_changelist"))
