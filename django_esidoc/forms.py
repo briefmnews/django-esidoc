@@ -2,6 +2,7 @@ import datetime
 import re
 import requests
 
+from bs4 import BeautifulSoup
 from datetime import datetime
 from formtools.preview import FormPreview
 
@@ -108,7 +109,7 @@ class InstitutionForm(ModelForm):
             distributor_id=ENT_GAR_DISTRIBUTOR_ID,
             resources_id=ENT_GAR_RESOURCES_ID,
             organization_name=ENT_GAR_ORGANIZATION_NAME,
-            start_date=datetime.now().isoformat(),
+            start_date=self._get_gar_start_date(http_method),
             end_date=self.cleaned_data.get("ends_at"),
             uai=uai,
         )
@@ -117,6 +118,42 @@ class InstitutionForm(ModelForm):
             xml = xml.replace("<uaiEtab>{uai}</uaiEtab>".format(uai=uai), "")
 
         return xml
+
+    def _get_gar_start_date(self, http_method):
+        """
+        The start date (debutValidite) is mandatory but cannot be changed when
+        updating a subscription. If we try to update the subscription we have to make a
+        GET request to retrieve the start date.
+        """
+        if http_method == "POST":
+            uai = self.clean_uai()
+            data = """<?xml version="1.0" encoding="UTF-8"?>
+            <filtres xmlns="http://www.atosworldline.com/wsabonnement/v1.0/">
+                  <filtre>
+                        <filtreNom>idDistributeurCom</filtreNom>
+                        <filtreValeur>{distributor_id}</filtreValeur>
+                  </filtre> 
+                  <filtre>
+                        <filtreNom>uaiEtab</filtreNom>
+                        <filtreValeur>{uai}</filtreValeur>
+                  </filtre> 
+            </filtres>""".format(distributor_id=ENT_GAR_DISTRIBUTOR_ID, uai=uai)
+            cert = get_gar_certificate()
+            headers = get_gar_headers()
+            response = requests.request(
+                "GET",
+                "https://abonnement.gar.education.fr/abonnements",
+                data=data,
+                cert=cert,
+                headers=headers,
+            )
+            soup = BeautifulSoup(response.text, "lxml")
+            subscriptions = soup.findAll("abonnement")
+            for subscription in subscriptions:
+                if subscription.find("idabonnement").text == get_gar_subscription_id(uai):
+                    return subscription.find("debutvalidite").text
+
+        return datetime.now().isoformat()
 
 
 class BatchAddInstitutionForm(forms.Form):

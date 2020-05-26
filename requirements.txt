@@ -3,3 +3,4 @@ python-cas==1.4.0
 requests==2.21.0
 djangorestframework==3.9.4
 django-formtools>=2.0
+beautifulsoup4>=4.6
