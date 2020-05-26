@@ -61,18 +61,17 @@ class TestInstitutionForm:
             "request",
             side_effect=[
                 response_from_gar(409, "Cette abonnement existe deja"),
+                response_from_gar(200, "Hello"),
                 response_from_gar(201, "OK"),
             ],
         )
 
         # WHEN
         form = InstitutionForm(data=form_data(ent="GAR").data)
-        # from ipdb import set_trace
-        # set_trace()
         form.save()
 
         # THEN
-        assert mock_request.call_count == 2
+        assert mock_request.call_count == 3
         assert form.is_valid()
 
     def test_form_works_with_gar_when_updating_instance(
