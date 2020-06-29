@@ -24,10 +24,10 @@ class CASMiddleware:
         self.get_response = get_response
 
     def __call__(self, request):
-        uai_number = request.GET.get(ENT_QUERY_STRING_TRIGGER)
+        uai_number = request.GET.get(ENT_QUERY_STRING_TRIGGER) or request.GET.get("uai", "")
         cas_ticket = request.GET.get("ticket", "")
 
-        if cas_ticket:
+        if cas_ticket and not uai_number:
             uai_numbers = self.validate_ticket(request, cas_ticket)
 
             user = CASBackend.authenticate(request, uai_numbers=uai_numbers)
@@ -89,6 +89,9 @@ class CASMiddleware:
                 uai_element = "cas:ENTStructureUAI"
             elif ent in ["OCCITANIE", "OCCITANIEAGR"]:
                 uai_element = "cas:rneCourant"
+            elif ent == "CORRELYCE":
+                auth_success_element = auth_success_element.find("cas:attributes", ns)
+                uai_element = "cas:ENTPersonStructRattachUAI"
             else:
                 uai_element = "cas:ENTPersonStructRattachRNE"
 
