@@ -13,6 +13,7 @@ class Institution(models.Model):
         ("GAR", "GAR"),
         ("OCCITANIE", "Occitanie"),
         ("OCCITANIEAGR", "Occitanie lycée agricole"),
+        ("CORRELYCE", "Corrélyce"),
     ]
 
     uai = models.CharField(
