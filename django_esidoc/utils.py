@@ -8,6 +8,7 @@ ENT_ESIDOC_BASE_URL = getattr(settings, "ENT_ESIDOC_BASE_URL", "{}")
 ENT_HDF_BASE_URL = getattr(settings, "ENT_HDF_BASE_URL", "")
 ENT_OCCITANIE_BASE_URL = getattr(settings, "ENT_OCCITANIE_BASE_URL", "")
 ENT_OCCITANIEAGR_BASE_URL = getattr(settings, "ENT_OCCITANIEAGR_BASE_URL", "")
+ENT_CORRELYCE_BASE_URL = getattr(settings, "ENT_CORRELYCE_BASE_URL", "")
 ENT_QUERY_STRING_TRIGGER = getattr(settings, "ENT_QUERY_STRING_TRIGGER", "sso_id")
 
 
@@ -39,6 +40,8 @@ def _get_cas_base_url(uai_number, ent):
         url = ENT_OCCITANIE_BASE_URL
     elif ent == "OCCITANIEAGR":
         url = ENT_OCCITANIEAGR_BASE_URL
+    elif ent == "CORRELYCE":
+        url = ENT_CORRELYCE_BASE_URL
     else:
         url = ENT_HDF_BASE_URL
 
