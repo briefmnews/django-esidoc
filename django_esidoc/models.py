@@ -17,7 +17,7 @@ class Institution(models.Model):
     ]
 
     uai = models.CharField(
-        "Unité Administrative Immatriculée", max_length=14, unique=True
+        "Unité Administrative Immatriculée", max_length=14
     )
     institution_name = models.CharField("Nom de l'institution", max_length=255)
     ends_at = models.DateField("Date de fin d'abonnement", null=True)
@@ -31,3 +31,8 @@ class Institution(models.Model):
 
     def __str__(self):
         return "{} ({})".format(self.institution_name, self.uai)
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=['uai', 'ent'], name='one_uai_per_ent')
+        ]
