@@ -26,8 +26,9 @@ class CASMiddleware:
     def __call__(self, request):
         uai_number = request.GET.get(ENT_QUERY_STRING_TRIGGER) or request.GET.get("uai", "")
         cas_ticket = request.GET.get("ticket", "")
+        pf = request.GET.get("pf", "")
 
-        if cas_ticket and not uai_number:
+        if cas_ticket and not pf:
             uai_numbers = self.validate_ticket(request, cas_ticket)
 
             user = CASBackend.authenticate(request, uai_numbers=uai_numbers)
