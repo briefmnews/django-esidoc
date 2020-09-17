@@ -24,7 +24,9 @@ class CASMiddleware:
         self.get_response = get_response
 
     def __call__(self, request):
-        uai_number = request.GET.get(ENT_QUERY_STRING_TRIGGER) or request.GET.get("uai", "")
+        uai_number = request.GET.get(ENT_QUERY_STRING_TRIGGER) or request.GET.get(
+            "uai", ""
+        )
         cas_ticket = request.GET.get("ticket", "")
         pf = request.GET.get("pf", "")
 

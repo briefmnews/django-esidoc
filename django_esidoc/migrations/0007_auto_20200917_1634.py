@@ -6,13 +6,24 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('django_esidoc', '0006_auto_20200629_1012'),
+        ("django_esidoc", "0006_auto_20200629_1012"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='institution',
-            name='ent',
-            field=models.CharField(choices=[('ESIDOC', 'Esidoc'), ('HDF', 'Hauts-de-France'), ('OCCITANIE', 'Occitanie'), ('OCCITANIEAGR', 'Occitanie lycée agricole'), ('CORRELYCE', 'Corrélyce')], default='ESIDOC', max_length=12, verbose_name='Environnements Numériques de Travail'),
+            model_name="institution",
+            name="ent",
+            field=models.CharField(
+                choices=[
+                    ("ESIDOC", "Esidoc"),
+                    ("HDF", "Hauts-de-France"),
+                    ("OCCITANIE", "Occitanie"),
+                    ("OCCITANIEAGR", "Occitanie lycée agricole"),
+                    ("CORRELYCE", "Corrélyce"),
+                ],
+                default="ESIDOC",
+                max_length=12,
+                verbose_name="Environnements Numériques de Travail",
+            ),
         ),
     ]
