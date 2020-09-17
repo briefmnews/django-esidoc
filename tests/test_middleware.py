@@ -46,19 +46,6 @@ class TestCASMiddleware:
         # THEN
         assert settings.ENT_ESIDOC_BASE_URL.format(uai_number) in response.url
 
-    def test_when_uai_number_is_gar(self, request_builder):
-        """Testing the __call__ method with uai_number in url and is gar"""
-        # GIVEN
-        query_params = "/?{}={}".format(ENT_QUERY_STRING_TRIGGER, "gar")
-        request = request_builder.get(query_params)
-        cas_middleware = CASMiddleware(request)
-
-        # WHEN
-        response = cas_middleware(request)
-
-        # THEN
-        assert settings.ENT_GAR_BASE_URL in response.url
-
     def test_when_cas_ticket_valid(
         self, mock_validate_valid_ticket, user, request_builder
     ):
@@ -121,7 +108,6 @@ class TestCASMiddleware:
         "uai_number, ent",
         [
             ("9999999Q", "HDF"),
-            ("0561641E", "GAR"),
             ("9990075C", "ESIDOC"),
             ("EXPDATA2MIDIPY", "OCCITANIE"),
             ("031MONITORING", "OCCITANIEAGR"),
@@ -145,7 +131,7 @@ class TestCASMiddleware:
 
     @pytest.mark.parametrize(
         "uai_number, ent",
-        [("9999999Q", "HDF"), ("0561641E", "GAR"), ("9990075C", "ESIDOC")],
+        [("9999999Q", "HDF"), ("9990075C", "ESIDOC")],
     )
     def test_validate_ticket_parse_error(self, uai_number, ent, request_builder):
         # GIVEN

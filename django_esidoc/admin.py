@@ -3,7 +3,6 @@ from django.urls import path
 
 from functools import update_wrapper
 
-from .gar import delete_gar_subscription
 from .forms import (
     BatchAddInstitutionForm,
     BatchAddInstitutionsFormPreview,
@@ -22,11 +21,6 @@ class InstitutionAdmin(admin.ModelAdmin):
     ordering = ("institution_name",)
     search_fields = ("institution_name", "user__email", "uai", "ent")
     form = InstitutionForm
-
-    def delete_model(self, request, obj):
-        if obj.ent == "GAR":
-            delete_gar_subscription(obj.uai)
-        super().delete_model(request, obj)
 
     def get_urls(self):
 

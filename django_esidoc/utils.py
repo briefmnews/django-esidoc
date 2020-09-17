@@ -3,7 +3,6 @@ from django.conf import settings
 from cas import CASClient
 
 ESIDOC_INACTIVE_USER_REDIRECT = getattr(settings, "ESIDOC_INACTIVE_USER_REDIRECT", "/")
-ENT_GAR_BASE_URL = getattr(settings, "ENT_GAR_BASE_URL", "")
 ENT_ESIDOC_BASE_URL = getattr(settings, "ENT_ESIDOC_BASE_URL", "{}")
 ENT_HDF_BASE_URL = getattr(settings, "ENT_HDF_BASE_URL", "")
 ENT_OCCITANIE_BASE_URL = getattr(settings, "ENT_OCCITANIE_BASE_URL", "")
@@ -17,7 +16,7 @@ def get_redirect_url(request, path=None):
 
     scheme = request.scheme
     host = request.get_host()
-    if request.session.get("ent") in ["GAR", "OCCITANIE", "OCCITANIEAGR"]:
+    if request.session.get("ent") in ["OCCITANIE", "OCCITANIEAGR"]:
         url = "{}://{}/?{}={}".format(
             scheme, host, ENT_QUERY_STRING_TRIGGER, request.session.get("ent").lower()
         )
@@ -32,9 +31,7 @@ def get_redirect_url(request, path=None):
 def _get_cas_base_url(uai_number, ent):
     """Get the CAS base url format depending on the ENT"""
 
-    if ent == "GAR":
-        url = ENT_GAR_BASE_URL
-    elif ent == "ESIDOC":
+    if ent == "ESIDOC":
         url = ENT_ESIDOC_BASE_URL.format(uai_number)
     elif ent == "OCCITANIE":
         url = ENT_OCCITANIE_BASE_URL
@@ -53,10 +50,7 @@ def get_cas_client(request):
 
     uai_number = request.session.get("uai_number")
     ent = request.session.get("ent")
-    if ent == "GAR":
-        cas_version = 3
-    else:
-        cas_version = 2
+    cas_version = 2
 
     server_url = _get_cas_base_url(uai_number, ent)
 

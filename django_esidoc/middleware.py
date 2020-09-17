@@ -40,7 +40,7 @@ class CASMiddleware:
         elif uai_number:
             uai_number = uai_number.upper()
 
-            if uai_number in ["GAR", "OCCITANIE", "OCCITANIEAGR"]:
+            if uai_number in ["OCCITANIE", "OCCITANIEAGR"]:
                 request.session["uai_number"] = None
                 request.session["ent"] = uai_number
             else:
@@ -83,10 +83,7 @@ class CASMiddleware:
             auth_success_element = tree.find("cas:authenticationSuccess", ns)
             ent = request.session.get("ent", "")
 
-            if ent == "GAR":
-                auth_success_element = auth_success_element.find("cas:attributes", ns)
-                uai_element = "cas:UAI"
-            elif ent == "ESIDOC":
+            if ent == "ESIDOC":
                 uai_element = "cas:ENTStructureUAI"
             elif ent in ["OCCITANIE", "OCCITANIEAGR"]:
                 uai_element = "cas:rneCourant"

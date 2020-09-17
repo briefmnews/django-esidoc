@@ -57,9 +57,7 @@ class RequestBuilder(object):
 
 @pytest.fixture
 def mock_verification_response(mocker, ent):
-    if ent == "GAR":
-        file = "tests/fixtures/valid_ticket_gar.xml"
-    elif ent == "ESIDOC":
+    if ent == "ESIDOC":
         file = "tests/fixtures/valid_ticket_esidoc.xml"
     elif ent == "OCCITANIE":
         file = "tests/fixtures/valid_ticket_occitanie.xml"
@@ -73,21 +71,6 @@ def mock_verification_response(mocker, ent):
             "cas.CASClientV2.get_verification_response",
             return_value=xml_response.read(),
         )
-
-
-@pytest.fixture
-def response_from_gar():
-    """Create a response object from GAR ent"""
-    return ResponseBuilder
-
-
-class ResponseBuilder:
-    status_code = None
-    text = None
-
-    def __init__(self, status_code, message):
-        self.status_code = status_code
-        self.text = message
 
 
 @pytest.fixture
