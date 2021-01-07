@@ -10,6 +10,14 @@ ENT_OCCITANIEAGR_BASE_URL = getattr(settings, "ENT_OCCITANIEAGR_BASE_URL", "")
 ENT_CORRELYCE_BASE_URL = getattr(settings, "ENT_CORRELYCE_BASE_URL", "")
 ENT_QUERY_STRING_TRIGGER = getattr(settings, "ENT_QUERY_STRING_TRIGGER", "sso_id")
 
+BASE_URLS = {
+    "ESIDOC": ENT_ESIDOC_BASE_URL,
+    "OCCITANIE": ENT_OCCITANIE_BASE_URL,
+    "OCCITANIEAGR": ENT_OCCITANIEAGR_BASE_URL,
+    "CORRELYCE": ENT_CORRELYCE_BASE_URL,
+    "HDF": ENT_HDF_BASE_URL,
+}
+
 
 def get_redirect_url(request, path=None):
     """Get redirect url for cas"""
@@ -28,23 +36,6 @@ def get_redirect_url(request, path=None):
     return url
 
 
-def _get_cas_base_url(uai_number, ent):
-    """Get the CAS base url format depending on the ENT"""
-
-    if ent == "ESIDOC":
-        url = ENT_ESIDOC_BASE_URL.format(uai_number)
-    elif ent == "OCCITANIE":
-        url = ENT_OCCITANIE_BASE_URL
-    elif ent == "OCCITANIEAGR":
-        url = ENT_OCCITANIEAGR_BASE_URL
-    elif ent == "CORRELYCE":
-        url = ENT_CORRELYCE_BASE_URL
-    else:
-        url = ENT_HDF_BASE_URL
-
-    return url
-
-
 def get_cas_client(request):
     """Create a CAS client"""
 
@@ -52,7 +43,7 @@ def get_cas_client(request):
     ent = request.session.get("ent")
     cas_version = 2
 
-    server_url = _get_cas_base_url(uai_number, ent)
+    server_url = BASE_URLS.get(ent, ENT_HDF_BASE_URL).format(uai_number)
 
     next_page = request.path
     service_url = get_redirect_url(request, next_page)
