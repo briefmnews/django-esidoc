@@ -1,4 +1,4 @@
-lxml==4.3.3
+lxml==4.6.2
 python-cas==1.4.0
 requests==2.21.0
 djangorestframework==3.9.4
