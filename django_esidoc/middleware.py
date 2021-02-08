@@ -36,6 +36,7 @@ class CASMiddleware:
             user = CASBackend.authenticate(request, uai_numbers=uai_numbers)
             if user:
                 login(request, user, backend="django_esidoc.backends.CASBackend")
+                request.esidoc_user = True
             else:
                 return HttpResponseRedirect(ESIDOC_INACTIVE_USER_REDIRECT)
 
