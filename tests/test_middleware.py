@@ -130,7 +130,8 @@ class TestCASMiddleware:
         mock_verification_response.assert_called_once()
 
     @pytest.mark.parametrize(
-        "uai_number, ent", [("9999999Q", "HDF"), ("9990075C", "ESIDOC")],
+        "uai_number, ent",
+        [("9999999Q", "HDF"), ("9990075C", "ESIDOC")],
     )
     def test_validate_ticket_parse_error(self, uai_number, ent, request_builder):
         # GIVEN
