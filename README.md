@@ -6,7 +6,7 @@
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/python/black)  
 Handle CAS login via sso for french ENT (Etablissements Numériques de Travail) like 
 [e-sidoc](https://www.reseau-canope.fr/notice/e-sidoc.html) or ENT Hauts-de-France (HDF) or Occitanie (OCCITANIE) or Occitanie lycée agricole (OCCITANIEAGR)
-or (GMINVENT) GMInvent.
+or (GMINVENT) GMInvent or (C3RB) C3rb.
 
 ## Installation
 Install with [pip](https://pip.pypa.io/en/stable/):
