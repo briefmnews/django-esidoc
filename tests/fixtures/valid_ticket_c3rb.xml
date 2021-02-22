@@ -1,0 +1,14 @@
+<cas:serviceResponse xmlns:cas='http://www.yale.edu/tp/cas'>
+    <cas:authenticationSuccess>
+        <cas:user>brief.me</cas:user>
+        <cas:attributes>
+            <cas:site>3000</cas:site>
+            <cas:mail></cas:mail>
+            <cas:prenom>
+                Brief.me
+            </cas:prenom>
+            <cas:cb>90895e0016</cas:cb>
+            <cas:cb>90895e0016</cas:cb>
+        </cas:attributes>
+    </cas:authenticationSuccess>
+</cas:serviceResponse>

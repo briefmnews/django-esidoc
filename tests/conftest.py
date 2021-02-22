@@ -67,6 +67,8 @@ def mock_verification_response(mocker, ent):
         file = "tests/fixtures/valid_ticket_hdf_with_multiple_institutions.xml"
     elif ent == "GMINVENT":
         file = "tests/fixtures/valid_ticket_gminvent.xml"
+    elif ent == "C3RB":
+        file = "tests/fixtures/valid_ticket_c3rb.xml"
 
     with open(file, "r") as xml_response:
         return mocker.patch(
