@@ -93,8 +93,10 @@ class CASMiddleware:
             elif ent == "CORRELYCE":
                 auth_success_element = auth_success_element.find("cas:attributes", ns)
                 uai_element = "cas:ENTPersonStructRattachUAI"
-            else:
+            elif ent == "HDF":
                 uai_element = "cas:ENTPersonStructRattachRNE"
+            else:
+                return []
 
             uai_numbers = [
                 uai.text.upper()
