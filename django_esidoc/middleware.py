@@ -103,4 +103,4 @@ class CASMiddleware:
             return uai_numbers
 
         except (AttributeError, ParseError):
-            return None
+            return []
