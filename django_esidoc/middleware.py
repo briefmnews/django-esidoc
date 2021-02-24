@@ -29,6 +29,7 @@ class CASMiddleware:
         )
         cas_ticket = request.GET.get("ticket", "")
         pf = request.GET.get("pf", "")
+        redirect = request.GET.get("redirect", "")
 
         if cas_ticket and not pf:
             uai_numbers = self.validate_ticket(request, cas_ticket)
@@ -38,6 +39,9 @@ class CASMiddleware:
                 login(request, user, backend="django_esidoc.backends.CASBackend")
                 request.esidoc_user = True
                 request.session["esidoc_user"] = True
+
+                if redirect:
+                    return HttpResponseRedirect(redirect)
             else:
                 return HttpResponseRedirect(ESIDOC_INACTIVE_USER_REDIRECT)
 
