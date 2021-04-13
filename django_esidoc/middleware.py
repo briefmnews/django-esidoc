@@ -28,10 +28,15 @@ class CASMiddleware:
             "uai", ""
         )
         cas_ticket = request.GET.get("ticket", "")
-        pf = request.GET.get("pf", "")
         redirect = request.GET.get("redirect", "")
 
-        if cas_ticket and not pf:
+        # Handle Corrélyce
+        pf = request.GET.get("pf", "")
+        if pf:
+            request.session["ent"] = "CORRELYCE"
+            request.session["uai_number"] = uai_number
+
+        if cas_ticket:
             uai_numbers = self.validate_ticket(request, cas_ticket)
 
             user = CASBackend.authenticate(request, uai_numbers=uai_numbers)

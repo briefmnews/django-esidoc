@@ -1,6 +1,6 @@
 from django.conf import settings
 
-from cas import CASClient
+from cas import CASClient, CASClientV2
 
 ESIDOC_INACTIVE_USER_REDIRECT = getattr(settings, "ESIDOC_INACTIVE_USER_REDIRECT", "/")
 ENT_ESIDOC_BASE_URL = getattr(settings, "ENT_ESIDOC_BASE_URL", "{}")
@@ -32,6 +32,10 @@ def get_redirect_url(request, path=None):
         url = "{}://{}/?{}={}".format(
             scheme, host, ENT_QUERY_STRING_TRIGGER, request.session.get("ent").lower()
         )
+    elif request.session.get("ent") == "CORRELYCE":
+        url = "{}://{}/?uai={}&pf=atrium-paca".format(
+            scheme, host, request.session.get("uai_number").lower()
+        )
     elif path:
         url = "{}://{}{}".format(scheme, host, path)
     else:
@@ -52,8 +56,15 @@ def get_cas_client(request):
     next_page = request.get_full_path()
     service_url = get_redirect_url(request, next_page)
 
-    client = CASClient(
-        version=cas_version, server_url=server_url, service_url=service_url
-    )
+    if ent == "CORRELYCE":
+        client = CASClientCorrelyce(server_url=server_url, service_url=service_url)
+    else:
+        client = CASClient(
+            version=cas_version, server_url=server_url, service_url=service_url
+        )
 
     return client
+
+
+class CASClientCorrelyce(CASClientV2):
+    url_suffix = "proxyValidate"
