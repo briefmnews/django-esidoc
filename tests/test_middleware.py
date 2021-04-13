@@ -132,10 +132,28 @@ class TestCASMiddleware:
         mock_verification_response.assert_called_once()
 
     @pytest.mark.parametrize(
-        "uai_number, ent", [("9999999Q", "HDF"), ("9990075C", "ESIDOC")],
+        "uai_number, ent",
+        [("9999999Q", "HDF"), ("9990075C", "ESIDOC")],
     )
-    def test_validate_ticket_parse_error(self, uai_number, ent, request_builder):
+    def test_validate_ticket_parse_error(
+        self, uai_number, ent, mocker, request_builder
+    ):
         # GIVEN
+        mocker.patch(
+            "cas.CASClientV2.get_verification_response",
+            return_value="""<?xml version="1.0"?>
+            <catalog>
+               <book id="bk101">
+                  <author>Gambardella, Matthew</author>
+                  <title>XML Developer's Guide</title>
+                  <genre>Computer</genre>
+                  <price>44.95</price>
+                  <publish_date>2000-10-01</publish_date>
+                  <description>An in-depth look at creating applications 
+                  with XML.</description>
+               </book>
+           </catalog>""",
+        )
         request = request_builder.get()
         uai_number = "invalid-uai"
         request.session["uai_number"] = uai_number
