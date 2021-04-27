@@ -1,3 +1,5 @@
+import logging
+
 from django.http import HttpResponseRedirect
 
 from django.conf import settings
@@ -9,6 +11,8 @@ from xml.etree.ElementTree import ParseError
 from .backends import CASBackend
 from .utils import get_cas_client
 from .models import Institution
+
+logger = logging.getLogger(__name__)
 
 ESIDOC_INACTIVE_USER_REDIRECT = getattr(settings, "ESIDOC_INACTIVE_USER_REDIRECT", "/")
 ENT_QUERY_STRING_TRIGGER = getattr(settings, "ENT_QUERY_STRING_TRIGGER", "sso_id")
@@ -33,6 +37,7 @@ class CASMiddleware:
         # Handle Corrélyce
         pf = request.GET.get("pf", "")
         if pf:
+            logger.info(f"pf: {pf}")
             request.session["ent"] = "CORRELYCE"
             request.session["uai_number"] = uai_number
 
@@ -89,6 +94,8 @@ class CASMiddleware:
 
         client = get_cas_client(request)
         response = client.get_verification_response(cas_ticket)
+
+        logger.info(response)
 
         try:
             tree = ElementTree.fromstring(response)

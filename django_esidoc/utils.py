@@ -1,6 +1,10 @@
+import logging
+
 from django.conf import settings
 
 from cas import CASClient, CASClientV2
+
+logger = logging.getLogger(__name__)
 
 ESIDOC_INACTIVE_USER_REDIRECT = getattr(settings, "ESIDOC_INACTIVE_USER_REDIRECT", "/")
 ENT_ESIDOC_BASE_URL = getattr(settings, "ENT_ESIDOC_BASE_URL", "{}")
@@ -49,6 +53,7 @@ def get_cas_client(request):
 
     uai_number = request.session.get("uai_number")
     ent = request.session.get("ent")
+    logger.info(f"ent: {ent}; uai: {uai_number}")
     cas_version = 2
 
     server_url = BASE_URLS.get(ent, ENT_HDF_BASE_URL).format(uai_number)
