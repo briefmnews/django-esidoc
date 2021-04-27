@@ -38,7 +38,7 @@ def get_redirect_url(request, path=None):
         )
     elif request.session.get("ent") == "CORRELYCE":
         url = "{}://{}/?uai={}&pf=atrium-paca".format(
-            scheme, host, request.session.get("uai_number").lower()
+            scheme, host, request.session.get("uai_number").upper()
         )
     elif path:
         url = "{}://{}{}".format(scheme, host, path)
