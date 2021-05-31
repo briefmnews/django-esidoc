@@ -59,6 +59,7 @@ class TestCASMiddleware:
         query_params = "/?ticket={}".format(cas_ticket)
         request = request_builder.get(query_params)
         request.session["uai_number"] = uai_number
+        request.session["is_esidoc"] = uai_number
         cas_middleware = CASMiddleware(request_builder.get)
 
         # WHEN
@@ -80,6 +81,7 @@ class TestCASMiddleware:
         query_params = "/?ticket={}".format(cas_ticket)
         request = request_builder.get(query_params)
         request.session["uai_number"] = uai_number
+        request.session["is_esidoc"] = uai_number
         cas_middleware = CASMiddleware(request_builder.get)
 
         # WHEN
