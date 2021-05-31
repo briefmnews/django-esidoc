@@ -41,7 +41,7 @@ class CASMiddleware:
             request.session["ent"] = "CORRELYCE"
             request.session["uai_number"] = uai_number
 
-        if cas_ticket:
+        if cas_ticket and request.session.get("is_esidoc"):
             uai_numbers = self.validate_ticket(request, cas_ticket)
 
             user = CASBackend.authenticate(request, uai_numbers=uai_numbers)
@@ -69,6 +69,8 @@ class CASMiddleware:
 
                 request.session["uai_number"] = uai_number
                 request.session["ent"] = ent
+
+            request.session["is_esidoc"] = True
 
             url = self.get_cas_login_url(request)
             return HttpResponseRedirect(url)
