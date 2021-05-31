@@ -114,6 +114,8 @@ class CASMiddleware:
                 uai_element = "cas:ENTPersonStructRattachRNE"
             elif ent in ["GMINVENT", "C3RB"]:
                 return [request.session.get("uai_number", "")]
+            elif ent == "ARCHIMED":
+                logger.debug("ARCHIMED")
             else:
                 return []
 
