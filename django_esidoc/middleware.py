@@ -3,7 +3,7 @@ import logging
 from django.http import HttpResponseRedirect
 
 from django.conf import settings
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login
 
 from xml.etree import ElementTree
 from xml.etree.ElementTree import ParseError
