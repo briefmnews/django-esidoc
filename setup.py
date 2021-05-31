@@ -13,8 +13,8 @@ setup(
     install_requires=[
         "Django>=2.2",
         "djangorestframework>=3.8.2",
-        "python-cas==1.4.0",
-        "lxml>=4.2.5",
+        "python-cas>=1.4.0",
+        "lxml>=4.6",
         "requests>=2.19.1",
     ],
     classifiers=[
