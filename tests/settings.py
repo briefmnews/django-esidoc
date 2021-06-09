@@ -18,4 +18,4 @@ ESIDOC_ACCESS_TOKEN = "my-secret-token"
 
 ENT_ESIDOC_BASE_URL = "https://{}-cas.esidoc.fr/cas/"
 ENT_HDF_BASE_URL = "https://preprod.enthdf.fr/cas"
-ENT_QUERY_STRING_TRIGGER = "sso_id"
+ESIDOC_QUERY_STRING_TRIGGER = "esidoc_sso_id"

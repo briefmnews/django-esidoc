@@ -14,7 +14,7 @@ ENT_OCCITANIEAGR_BASE_URL = getattr(settings, "ENT_OCCITANIEAGR_BASE_URL", "")
 ENT_CORRELYCE_BASE_URL = getattr(settings, "ENT_CORRELYCE_BASE_URL", "")
 ENT_GMINVENT_BASE_URL = getattr(settings, "ENT_GMINVENT_BASE_URL", "")
 ENT_C3RB_BASE_URL = getattr(settings, "ENT_C3RB_BASE_URL", "")
-ENT_QUERY_STRING_TRIGGER = getattr(settings, "ENT_QUERY_STRING_TRIGGER", "sso_id")
+ESIDOC_QUERY_STRING_TRIGGER = getattr(settings, "ESIDOC_QUERY_STRING_TRIGGER", "esidoc_sso_id")
 
 BASE_URLS = {
     "ESIDOC": ENT_ESIDOC_BASE_URL,
@@ -34,7 +34,7 @@ def get_redirect_url(request, path=None):
     host = request.get_host()
     if request.session.get("ent") in ["OCCITANIE", "OCCITANIEAGR"]:
         url = "{}://{}/?{}={}".format(
-            scheme, host, ENT_QUERY_STRING_TRIGGER, request.session.get("ent").lower()
+            scheme, host, ESIDOC_QUERY_STRING_TRIGGER, request.session.get("ent").lower()
         )
     elif request.session.get("ent") == "CORRELYCE":
         url = "{}://{}/?uai={}&pf=atrium-paca".format(

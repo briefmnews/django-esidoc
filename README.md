@@ -72,7 +72,7 @@ ENT_ESIDOC_BASE_URL
 ENT_HDF_BASE_URL
 ENT_OCCITANIE_BASE_URL
 ENT_OCCITANIEAGR_BASE_URL
-ENT_QUERY_STRING_TRIGGER
+ESIDOC_QUERY_STRING_TRIGGER
 ```
 
 ### Optional settings - Default redirection
@@ -89,10 +89,10 @@ the root path (i.e. `/`) as default value.
 
 ## How to use ?
 Once your all set up, when a request to your app is made with the query string 
-`sso_id=<unique_uai>`, the `CASMiddleware` catches the request and start the login process. 
+`esidoc_sso_id=<unique_uai>`, the `CASMiddleware` catches the request and start the login process. 
 Here is an example of a request url to start the login process:
 ```http request
-https://www.exemple.com/?sso_id=9990075c
+https://www.exemple.com/?esidoc_sso_id=9990075c
 ```
 
 ## API endpoint (only for Esidoc)

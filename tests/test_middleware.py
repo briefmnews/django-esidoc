@@ -6,7 +6,7 @@ from django_esidoc.middleware import CASMiddleware
 
 pytestmark = pytest.mark.django_db
 
-ENT_QUERY_STRING_TRIGGER = settings.ENT_QUERY_STRING_TRIGGER
+ESIDOC_QUERY_STRING_TRIGGER = settings.ESIDOC_QUERY_STRING_TRIGGER
 
 
 class TestCASMiddleware:
@@ -29,14 +29,14 @@ class TestCASMiddleware:
 
         # THEN
         assert cas_middleware.get_response().path == "/"
-        assert ENT_QUERY_STRING_TRIGGER not in response.GET
+        assert ESIDOC_QUERY_STRING_TRIGGER not in response.GET
         assert "ticket" not in response.GET
 
     def test_when_uai_number(self, user, request_builder):
         """Testing the __call__ method with uai_number in url"""
         # GIVEN
         uai_number = user.institution.uai
-        query_params = "/?{}={}".format(ENT_QUERY_STRING_TRIGGER, uai_number)
+        query_params = "/?{}={}".format(ESIDOC_QUERY_STRING_TRIGGER, uai_number)
         request = request_builder.get(query_params)
         cas_middleware = CASMiddleware(request)
 
@@ -95,7 +95,7 @@ class TestCASMiddleware:
         """Testing the __call_ method with an unknown institution"""
         # GIVEN
         uai_number = "fake-uai"
-        query_params = "/?{}={}".format(ENT_QUERY_STRING_TRIGGER, uai_number)
+        query_params = "/?{}={}".format(ESIDOC_QUERY_STRING_TRIGGER, uai_number)
         request = request_builder.get(query_params)
         request.session["uai_number"] = uai_number
         cas_middleware = CASMiddleware(request)

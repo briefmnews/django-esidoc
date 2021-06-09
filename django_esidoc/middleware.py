@@ -15,7 +15,7 @@ from .models import Institution
 logger = logging.getLogger(__name__)
 
 ESIDOC_INACTIVE_USER_REDIRECT = getattr(settings, "ESIDOC_INACTIVE_USER_REDIRECT", "/")
-ENT_QUERY_STRING_TRIGGER = getattr(settings, "ENT_QUERY_STRING_TRIGGER", "sso_id")
+ESIDOC_QUERY_STRING_TRIGGER = getattr(settings, "ESIDOC_QUERY_STRING_TRIGGER", "esidoc_sso_id")
 
 
 class CASMiddleware:
@@ -28,7 +28,7 @@ class CASMiddleware:
         self.get_response = get_response
 
     def __call__(self, request):
-        uai_number = request.GET.get(ENT_QUERY_STRING_TRIGGER) or request.GET.get(
+        uai_number = request.GET.get(ESIDOC_QUERY_STRING_TRIGGER) or request.GET.get(
             "uai", ""
         )
         cas_ticket = request.GET.get("ticket", "")
