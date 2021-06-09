@@ -15,7 +15,9 @@ from .models import Institution
 logger = logging.getLogger(__name__)
 
 ESIDOC_INACTIVE_USER_REDIRECT = getattr(settings, "ESIDOC_INACTIVE_USER_REDIRECT", "/")
-ESIDOC_QUERY_STRING_TRIGGER = getattr(settings, "ESIDOC_QUERY_STRING_TRIGGER", "esidoc_sso_id")
+ESIDOC_QUERY_STRING_TRIGGER = getattr(
+    settings, "ESIDOC_QUERY_STRING_TRIGGER", "esidoc_sso_id"
+)
 
 
 class CASMiddleware:

@@ -108,9 +108,7 @@ class TestCASMiddleware:
 
     @pytest.mark.parametrize(
         "uai_number",
-        [
-            "9990075C"
-        ],
+        ["9990075C"],
     )
     def test_validate_ticket(
         self, uai_number, mock_verification_response, request_builder
@@ -131,9 +129,7 @@ class TestCASMiddleware:
         "uai_number",
         ["9990075C"],
     )
-    def test_validate_ticket_parse_error(
-        self, uai_number, mocker, request_builder
-    ):
+    def test_validate_ticket_parse_error(self, uai_number, mocker, request_builder):
         # GIVEN
         mocker.patch(
             "cas.CASClientV2.get_verification_response",

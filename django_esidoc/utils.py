@@ -8,7 +8,9 @@ logger = logging.getLogger(__name__)
 
 ESIDOC_INACTIVE_USER_REDIRECT = getattr(settings, "ESIDOC_INACTIVE_USER_REDIRECT", "/")
 ENT_ESIDOC_BASE_URL = getattr(settings, "ENT_ESIDOC_BASE_URL", "{}")
-ESIDOC_QUERY_STRING_TRIGGER = getattr(settings, "ESIDOC_QUERY_STRING_TRIGGER", "esidoc_sso_id")
+ESIDOC_QUERY_STRING_TRIGGER = getattr(
+    settings, "ESIDOC_QUERY_STRING_TRIGGER", "esidoc_sso_id"
+)
 
 
 def get_redirect_url(request, path=None):
@@ -35,8 +37,6 @@ def get_cas_client(request):
     next_page = request.get_full_path()
     service_url = get_redirect_url(request, next_page)
 
-    client = CASClient(
-        version=2, server_url=server_url, service_url=service_url
-    )
+    client = CASClient(version=2, server_url=server_url, service_url=service_url)
 
     return client
