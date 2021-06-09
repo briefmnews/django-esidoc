@@ -107,26 +107,20 @@ class TestCASMiddleware:
         assert cas_middleware.get_response.path == "/"
 
     @pytest.mark.parametrize(
-        "uai_number, ent",
+        "uai_number",
         [
-            ("9999999Q", "HDF"),
-            ("9990075C", "ESIDOC"),
-            ("EXPDATA2MIDIPY", "OCCITANIE"),
-            ("031MONITORING", "OCCITANIEAGR"),
-            ("VAUCLUSE", "GMINVENT"),
-            ("3000", "C3RB"),
+            "9990075C"
         ],
     )
     def test_validate_ticket(
-        self, uai_number, ent, mock_verification_response, request_builder
+        self, uai_number, mock_verification_response, request_builder
     ):
         # GIVEN
         request = request_builder.get()
         request.session["uai_number"] = uai_number
-        request.session["ent"] = ent
 
         # WHEN
-        mock_verification_response.get(ent)
+        mock_verification_response.get()
         uai_numbers = CASMiddleware.validate_ticket(request, "dummy-ticket")
 
         # THEN
@@ -134,11 +128,11 @@ class TestCASMiddleware:
         mock_verification_response.assert_called_once()
 
     @pytest.mark.parametrize(
-        "uai_number, ent",
-        [("9999999Q", "HDF"), ("9990075C", "ESIDOC")],
+        "uai_number",
+        ["9990075C"],
     )
     def test_validate_ticket_parse_error(
-        self, uai_number, ent, mocker, request_builder
+        self, uai_number, mocker, request_builder
     ):
         # GIVEN
         mocker.patch(
@@ -159,7 +153,6 @@ class TestCASMiddleware:
         request = request_builder.get()
         uai_number = "invalid-uai"
         request.session["uai_number"] = uai_number
-        request.session["ent"] = ent
 
         # WHEN
         response = CASMiddleware.validate_ticket(request, "dummy-ticket")

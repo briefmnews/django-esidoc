@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<cas:serviceResponse xmlns:cas="http://www.yale.edu/tp/cas">
-   <cas:authenticationSuccess>
-      <cas:user>NLW03839</cas:user>
-      <cas:rneCourant>expdata2midipy</cas:rneCourant>
-      <cas:uid>NLW03839</cas:uid>
-   </cas:authenticationSuccess>
-</cas:serviceResponse>

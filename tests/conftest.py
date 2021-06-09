@@ -56,19 +56,8 @@ class RequestBuilder(object):
 
 
 @pytest.fixture
-def mock_verification_response(mocker, ent):
-    if ent == "ESIDOC":
-        file = "tests/fixtures/valid_ticket_esidoc.xml"
-    elif ent == "OCCITANIE":
-        file = "tests/fixtures/valid_ticket_occitanie.xml"
-    elif ent == "OCCITANIEAGR":
-        file = "tests/fixtures/valid_ticket_occitanie_agr.xml"
-    elif ent == "HDF":
-        file = "tests/fixtures/valid_ticket_hdf_with_multiple_institutions.xml"
-    elif ent == "GMINVENT":
-        file = "tests/fixtures/valid_ticket_gminvent.xml"
-    elif ent == "C3RB":
-        file = "tests/fixtures/valid_ticket_c3rb.xml"
+def mock_verification_response(mocker):
+    file = "tests/fixtures/valid_ticket_esidoc.xml"
 
     with open(file, "r") as xml_response:
         return mocker.patch(
@@ -84,17 +73,14 @@ def form_data():
 
 class FormDataBuilder:
     institution = None
-    ent = None
 
-    def __init__(self, institution=None, ent=None):
+    def __init__(self, institution=None):
         self.institution = institution
-        self.ent = ent
 
     @property
     def data(self):
         if self.institution:
             form_data = {
-                "ent": self.institution.ent,
                 "uai": self.institution.uai,
                 "institution_name": self.institution.institution_name,
                 "ends_at": self.institution.ends_at,
@@ -104,13 +90,10 @@ class FormDataBuilder:
             user = UserFactory()
             user.institution.delete()
             form_data = {
-                "ent": self.ent,
                 "uai": "00000f",
                 "institution_name": "dummy",
                 "ends_at": datetime.datetime.today(),
                 "user": user.id,
             }
-
-        form_data["ent"] = self.ent if self.ent else form_data["ent"]
 
         return form_data
