@@ -28,18 +28,9 @@ class CASMiddleware:
         self.get_response = get_response
 
     def __call__(self, request):
-        uai_number = request.GET.get(ESIDOC_QUERY_STRING_TRIGGER) or request.GET.get(
-            "uai", ""
-        )
+        uai_number = request.GET.get(ESIDOC_QUERY_STRING_TRIGGER, None)
         cas_ticket = request.GET.get("ticket", "")
         redirect = request.GET.get("redirect", "")
-
-        # Handle Corrélyce
-        pf = request.GET.get("pf", "")
-        if pf:
-            logger.info(f"pf: {pf}")
-            request.session["ent"] = "CORRELYCE"
-            request.session["uai_number"] = uai_number
 
         if cas_ticket and request.session.get("is_esidoc"):
             uai_numbers = self.validate_ticket(request, cas_ticket)
