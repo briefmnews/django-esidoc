@@ -1,6 +1,3 @@
-# -*- coding: utf-8 -*-
-from __future__ import unicode_literals
-
 from django.views.generic import RedirectView
 
 from rest_framework import viewsets
@@ -33,7 +30,7 @@ class LogoutRedirectView(RedirectView):
 
 
 class InstitutionViewSet(viewsets.ReadOnlyModelViewSet):
-    queryset = Institution.objects.filter(ent="ESIDOC")
+    queryset = Institution.objects.all()
     serializer_class = InstitutionSerializer
     authentication_classes = (QueryStringAuthentication,)
     permission_classes = (IsAuthenticated,)

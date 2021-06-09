@@ -20,7 +20,7 @@ User = get_user_model()
 class InstitutionForm(ModelForm):
     class Meta:
         model = Institution
-        fields = ("uai", "institution_name", "ends_at", "user", "ent")
+        fields = ("uai", "institution_name", "ends_at", "user")
 
     def clean_uai(self):
         return self.cleaned_data.get("uai").upper()
@@ -32,7 +32,7 @@ class BatchAddInstitutionForm(forms.Form):
         required=True,
         help_text=_(
             "Copy/paste the csv with the following format: email "
-            "(mandatory), uai (mandatory), ent (mandatory), intitution name (mandatory)."
+            "(mandatory), uai (mandatory), intitution name (mandatory)."
         ),
     )
 
@@ -40,19 +40,6 @@ class BatchAddInstitutionForm(forms.Form):
         institutions_data = self._get_institution_fields(
             self.cleaned_data["institutions_data"]
         )
-        for institution_detail in institutions_data:
-            ent = institution_detail[2]
-            ent_choices = [
-                val[0] for val in Institution.ENVIRONNEMENTS_NUMERIQUES_DE_TRAVAIL
-            ]
-            if ent not in ent_choices:
-                raise ValidationError(
-                    _(
-                        "ENTs must take ine of the following values: {}".format(
-                            ent_choices
-                        )
-                    )
-                )
 
         return institutions_data
 
@@ -72,15 +59,11 @@ class BatchAddInstitutionForm(forms.Form):
             except IndexError:
                 raise ValidationError(_("Uai number is madatory"))
             try:
-                ent = fields[2].upper().strip()
-            except IndexError:
-                raise ValidationError(_("Ent is madatory"))
-            try:
-                institution_name = fields[3].strip()
+                institution_name = fields[2].strip()
             except IndexError:
                 raise ValidationError(_("Institution name is madatory"))
 
-            ret.append((email, uai, ent, institution_name))
+            ret.append((email, uai, institution_name))
 
         return ret
 
@@ -112,8 +95,7 @@ class BatchAddInstitutionsFormPreview(FormPreview):
             Institution.objects.create(
                 user=user,
                 uai=institution_detail[1],
-                ent=institution_detail[2],
-                institution_name=institution_detail[3],
+                institution_name=institution_detail[2],
                 ends_at=datetime.now(),
             )
 

@@ -33,12 +33,12 @@ class CASMiddleware:
         redirect = request.GET.get("redirect", "")
 
         if cas_ticket and request.session.get("is_esidoc"):
+            del request.session["is_esidoc"]
             uai_numbers = self.validate_ticket(request, cas_ticket)
 
             user = CASBackend.authenticate(request, uai_numbers=uai_numbers)
             if user:
                 login(request, user, backend="django_esidoc.backends.CASBackend")
-                request.esidoc_user = True
                 request.session["esidoc_user"] = True
 
                 if redirect:
@@ -47,23 +47,9 @@ class CASMiddleware:
                 return HttpResponseRedirect(ESIDOC_INACTIVE_USER_REDIRECT)
 
         elif uai_number:
-            uai_number = uai_number.upper()
-
-            if uai_number in ["OCCITANIE", "OCCITANIEAGR"]:
-                request.session["uai_number"] = None
-                request.session["ent"] = uai_number
-            else:
-                try:
-                    ent = Institution.objects.get(uai=uai_number).ent
-                except Institution.DoesNotExist:
-                    return HttpResponseRedirect(ESIDOC_INACTIVE_USER_REDIRECT)
-
-                request.session["uai_number"] = uai_number
-                request.session["ent"] = ent
-
-            request.session["is_esidoc"] = True
-
+            request.session["uai_number"] = uai_number.upper()
             url = self.get_cas_login_url(request)
+            request.session["is_esidoc"] = True
             return HttpResponseRedirect(url)
 
         response = self.get_response(request)
@@ -94,21 +80,8 @@ class CASMiddleware:
             tree = ElementTree.fromstring(response)
             ns = {"cas": "http://www.yale.edu/tp/cas"}
             auth_success_element = tree.find("cas:authenticationSuccess", ns)
-            ent = request.session.get("ent", "")
 
-            if ent == "ESIDOC":
-                uai_element = "cas:ENTStructureUAI"
-            elif ent in ["OCCITANIE", "OCCITANIEAGR"]:
-                uai_element = "cas:rneCourant"
-            elif ent == "CORRELYCE":
-                auth_success_element = auth_success_element.find("cas:attributes", ns)
-                uai_element = "cas:ENTPersonStructRattachUAI"
-            elif ent == "HDF":
-                uai_element = "cas:ENTPersonStructRattachRNE"
-            elif ent in ["GMINVENT", "C3RB"]:
-                return [request.session.get("uai_number", "")]
-            else:
-                return []
+            uai_element = "cas:ENTStructureUAI"
 
             uai_numbers = [
                 uai.text.upper()
