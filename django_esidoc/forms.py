@@ -73,7 +73,7 @@ class BatchAddInstitutionsFormPreview(FormPreview):
     form_template = "django_esidoc/admin/form.html"
 
     def process_preview(self, request, form, context):
-        emails = [email for email, _, _, _ in form.cleaned_data["institutions_data"]]
+        emails = [email for email, _, _ in form.cleaned_data["institutions_data"]]
         existing_users = User.objects.filter(email__in=emails)
         context["users_found_count"] = existing_users.count()
         context["users_not_found_count"] = len(emails) - existing_users.count()
