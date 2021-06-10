@@ -4,9 +4,7 @@
 [![Build Status](https://travis-ci.org/briefmnews/django-esidoc.svg?branch=master)](https://travis-ci.org/briefmnews/django-esidoc)
 [![codecov](https://codecov.io/gh/briefmnews/django-esidoc/branch/master/graph/badge.svg)](https://codecov.io/gh/briefmnews/django-esidoc)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/python/black)  
-Handle CAS login via sso for french ENT (Etablissements Numériques de Travail) like 
-[e-sidoc](https://www.reseau-canope.fr/notice/e-sidoc.html) or ENT Hauts-de-France (HDF) or Occitanie (OCCITANIE) or Occitanie lycée agricole (OCCITANIEAGR)
-or (GMINVENT) GMInvent or (C3RB) C3rb.
+Handle CAS login via sso for [e-sidoc](https://www.reseau-canope.fr/notice/e-sidoc.html). 
 
 ## Installation
 Install with [pip](https://pip.pypa.io/en/stable/):
@@ -69,9 +67,6 @@ python manage.py migrate
 Here is the list of all the mandatory settings:
 ```python
 ENT_ESIDOC_BASE_URL
-ENT_HDF_BASE_URL
-ENT_OCCITANIE_BASE_URL
-ENT_OCCITANIEAGR_BASE_URL
 ESIDOC_QUERY_STRING_TRIGGER
 ```
 
@@ -95,7 +90,7 @@ Here is an example of a request url to start the login process:
 https://www.exemple.com/?esidoc_sso_id=9990075c
 ```
 
-## API endpoint (only for Esidoc)
+## API endpoint
 In order to expose the `Institutions` UAI number and end of subscription date, the following
 API endpoint is available:
 ```python
