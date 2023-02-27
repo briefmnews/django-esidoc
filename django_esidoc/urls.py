@@ -1,11 +1,11 @@
-from django.conf.urls import url
+from django.urls import re_path
 
 from .views import InstitutionViewSet, LogoutRedirectView
 
 
 urlpatterns = [
-    url(r"^logout/$", LogoutRedirectView.as_view(), name="esidoc_logout"),
-    url(
+    re_path(r"^logout/$", LogoutRedirectView.as_view(), name="esidoc_logout"),
+    re_path(
         r"^institutions/$",
         InstitutionViewSet.as_view({"get": "list"}),
         name="esidoc_institutions",
