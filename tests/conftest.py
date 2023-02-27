@@ -41,14 +41,14 @@ def request_builder():
     return RequestBuilder()
 
 
-class RequestBuilder(object):
+class RequestBuilder:
     @staticmethod
     def get(path="?"):
         rf = RequestFactory()
         request = rf.get(path)
         request.user = AnonymousUser()
 
-        middleware = SessionMiddleware()
+        middleware = SessionMiddleware("dummy")
         middleware.process_request(request)
         request.session.save()
 
