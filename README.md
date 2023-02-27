@@ -1,7 +1,7 @@
 # django-esidoc
-[![Python 3.7](https://img.shields.io/badge/python-3.7-blue.svg)](https://www.python.org/downloads/release/python-270/) 
-[![Django 2.2](https://img.shields.io/badge/django-2.2-blue.svg)](https://docs.djangoproject.com/en/2.2/)
-[![Build Status](https://travis-ci.org/briefmnews/django-esidoc.svg?branch=master)](https://travis-ci.org/briefmnews/django-esidoc)
+[![Python 3.7|3.8|3.9](https://img.shields.io/badge/python-3.7|3.8|3.9-blue.svg)](https://www.python.org/downloads/release/python-270/) 
+[![Django 3.2](https://img.shields.io/badge/django-3.2-blue.svg)](https://docs.djangoproject.com/en/2.2/)
+[![Python CI](https://github.com/briefmnews/django-esidoc/actions/workflows/workflow.yaml/badge.svg)](https://github.com/briefmnews/django-esidoc/actions/workflows/workflow.yaml)
 [![codecov](https://codecov.io/gh/briefmnews/django-esidoc/branch/master/graph/badge.svg)](https://codecov.io/gh/briefmnews/django-esidoc)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/python/black)  
 Handle CAS login via sso for [e-sidoc](https://www.reseau-canope.fr/notice/e-sidoc.html). 
