@@ -1,8 +1,10 @@
 from setuptools import setup
 
+from django_esidoc import __version__
+
 setup(
     name="django-esidoc",
-    version="3.0.1",
+    version=__version__,
     description="Handle login and ticket validation for french ent (Esidoc, HDF and Occitanie)",
     url="https://github.com/briefmnews/django-esidoc",
     author="Brief.me",
