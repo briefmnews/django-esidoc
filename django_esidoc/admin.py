@@ -22,7 +22,6 @@ class InstitutionAdmin(admin.ModelAdmin):
     form = InstitutionForm
 
     def get_urls(self):
-
         urls = super().get_urls()
 
         def wrap(view):
