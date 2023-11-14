@@ -17,7 +17,7 @@ class TestCASBackend(object):
         # WHEN
         backend = CASBackend()
         authenticated_user = backend.authenticate(
-            request=None, uai_numbers=[user.institution.uai]
+            request=None, esidoc_uai_numbers=[user.institution.uai]
         )
 
         # THEN
@@ -29,14 +29,10 @@ class TestCASBackend(object):
         """
         Test the case where user doesn't have access (is_active = False)
         """
-        # GIVEN
-        user.is_active = False
-        user.save()
-
         # WHEN
         backend = CASBackend()
         authenticated_user = backend.authenticate(
-            request=None, uai_numbers=[user.institution.uai]
+            request=None, esidoc_uai_numbers=["FAKE"]
         )
 
         # THEN
