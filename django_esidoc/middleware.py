@@ -36,7 +36,7 @@ class CASMiddleware:
             del request.session["is_esidoc"]
             uai_numbers = self.validate_ticket(request, cas_ticket)
 
-            user = authenticate(request, uai_numbers=uai_numbers)
+            user = authenticate(request, esidoc_uai_numbers=uai_numbers)
             if user:
                 login(request, user, backend="django_esidoc.backends.CASBackend")
                 request.session["esidoc_user"] = True

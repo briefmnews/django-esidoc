@@ -9,11 +9,8 @@ class CASBackend:
     """
 
     @staticmethod
-    def authenticate(request, uai_numbers):
-        user = User.objects.filter(
-            institution__uai__in=uai_numbers, is_active=True
-        ).last()
-        return user
+    def authenticate(request, esidoc_uai_numbers):
+        return User.objects.filter(institution__uai__in=esidoc_uai_numbers).last()
 
     @staticmethod
     def get_user(user_id):
