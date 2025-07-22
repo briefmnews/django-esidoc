@@ -87,6 +87,9 @@ class CASMiddleware:
                 uai.text.upper()
                 for uai in auth_success_element.findall(uai_element, ns)
             ]
+
+            request.session["esidoc_profile"] = auth_success_element.find(".//account_type", ns).text
+
             return uai_numbers
 
         except (AttributeError, ParseError):
