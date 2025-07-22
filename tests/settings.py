@@ -18,3 +18,5 @@ ESIDOC_ACCESS_TOKEN = "my-secret-token"
 
 ENT_ESIDOC_BASE_URL = "https://{}-cas.esidoc.fr/cas/"
 ESIDOC_QUERY_STRING_TRIGGER = "esidoc_sso_id"
+
+USE_TZ = True
