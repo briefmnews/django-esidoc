@@ -18,6 +18,7 @@ class InstitutionFactory(factory.django.DjangoModelFactory):
 class UserFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = get_user_model()
+        skip_postgeneration_save = True
 
     email = factory.Sequence(lambda n: "noel{0}@flantier.com".format(n))
     is_active = True
