@@ -15,3 +15,19 @@ class TestInstitutionForm:
 
         # THEN
         assert form.is_valid()
+
+    def test_institution_name_transformation(self):
+        # GIVEN
+        form_data = {
+            "uai": "00000F",
+            "institution_name": "Lycée Saint-Éxupéry",
+            "ends_at": "2025-12-31",
+            "user": 1,
+        }
+
+        # WHEN
+        form = InstitutionForm(data=form_data)
+        form.is_valid()
+
+        # THEN
+        assert form.cleaned_data["institution_name"] == "LYCEE SAINT-EXUPERY"
