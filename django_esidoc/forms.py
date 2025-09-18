@@ -1,5 +1,6 @@
 import datetime
 import re
+import unicodedata
 
 from datetime import datetime
 from formtools.preview import FormPreview
@@ -24,6 +25,14 @@ class InstitutionForm(ModelForm):
 
     def clean_uai(self):
         return self.cleaned_data.get("uai").upper()
+
+    def clean_institution_name(self):
+        institution_name = self.cleaned_data.get("institution_name").upper()
+        return "".join(
+            c
+            for c in unicodedata.normalize("NFD", institution_name)
+            if unicodedata.category(c) != "Mn"
+        )
 
 
 class BatchAddInstitutionForm(forms.Form):
