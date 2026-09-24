@@ -12,3 +12,8 @@ class TestInstitutionModel(object):
         uai = user.institution.uai
         with pytest.raises(IntegrityError):
             InstitutionFactory(uai=uai, user=user)
+
+    def test_uai_is_always_uppercase(self, user):
+        user.institution.uai = "00000f"
+        user.institution.save()
+        assert user.institution.uai == "00000F"
