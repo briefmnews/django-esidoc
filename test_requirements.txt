@@ -1,6 +1,6 @@
 -r requirements.txt
 black==25.1.0
-Django==4.2.23
+Django==5.2.19
 ipdb==0.13.13
 pytest==8.4.1
 pytest-cov==6.2.1
